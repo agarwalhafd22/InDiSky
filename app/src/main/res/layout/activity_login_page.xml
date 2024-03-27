@@ -379,7 +379,6 @@
                     android:layout_height="wrap_content"
                     android:alpha="0.5"
                     android:visibility="visible"
-                    app:cardElevation=""
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="20dp"
                     app:contentPaddingBottom="7dp"
