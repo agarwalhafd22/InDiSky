@@ -98,7 +98,16 @@ public class LoginPage extends AppCompatActivity {
         if (savedInstanceState != null) {
             videoPosition = savedInstanceState.getInt(VIDEO_POSITION_KEY);
         }
-        typeWriterAnimation();
+
+        int delayMillis = 1500;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                typeWriterAnimation();
+            }
+        }, delayMillis);
+
 
         signinTextView.setOnClickListener(new View.OnClickListener() {
             @Override
