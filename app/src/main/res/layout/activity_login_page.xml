@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="280dp"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -321,7 +321,7 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:alpha="0.5"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toTopOf="@+id/signinTextView"
@@ -392,8 +392,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="Email"
-                        android:textColorHint="@color/black"
                         android:inputType="textEmailAddress"
+                        android:textColorHint="@color/black"
                         android:textSize="16sp" />
                 </androidx.cardview.widget.CardView>
 
@@ -425,8 +425,8 @@
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:alpha="0.5"
-                    android:visibility="visible"
                     android:background="@drawable/cardview"
+                    android:visibility="visible"
                     app:cardCornerRadius="20dp"
                     app:contentPaddingBottom="7dp"
                     app:contentPaddingLeft="10dp"
