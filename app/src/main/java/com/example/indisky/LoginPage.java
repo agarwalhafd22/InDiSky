@@ -1,6 +1,7 @@
 package com.example.indisky;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.UnderlineSpan;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 import android.os.Handler;
@@ -15,7 +18,10 @@ import android.os.Handler;
 
 public class LoginPage extends AppCompatActivity {
 
-    TextView forgotpassword, typewriter, textView22, textView14, textView16, textView18;
+    TextView forgotpassword, typewriter, signinTextView, textView14, textView16, textView18, backTextView;
+
+    CardView cardView, email, cardViewLogin, password;
+    LinearLayout linearLayout;
 
     private String[] texts = {
             "Fly for Experience...",
@@ -49,6 +55,13 @@ public class LoginPage extends AppCompatActivity {
         textView14=findViewById(R.id.textView14);
         textView16=findViewById(R.id.textView16);
         textView18=findViewById(R.id.textView18);
+        signinTextView=findViewById(R.id.signinTextView);
+        cardView=findViewById(R.id.cardView);
+        linearLayout=findViewById(R.id.linearLayout);
+        backTextView=findViewById(R.id.backTextView);
+        email=findViewById(R.id.email);
+        cardViewLogin=findViewById(R.id.cardViewLogin);
+        password=findViewById(R.id.password);
 
         String text2="Terms of Service.";
         String text3="Privacy Policy";
@@ -86,6 +99,28 @@ public class LoginPage extends AppCompatActivity {
             videoPosition = savedInstanceState.getInt(VIDEO_POSITION_KEY);
         }
         typeWriterAnimation();
+
+        signinTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardView.setVisibility(View.INVISIBLE);
+                linearLayout.setVisibility(View.INVISIBLE);
+                signinTextView.setVisibility(View.INVISIBLE);
+                backTextView.setVisibility(View.VISIBLE);
+                cardViewLogin.setVisibility(View.VISIBLE);
+            }
+        });
+
+        backTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backTextView.setVisibility(View.INVISIBLE);
+                cardViewLogin.setVisibility(View.INVISIBLE);
+                cardView.setVisibility(View.VISIBLE);
+                linearLayout.setVisibility(View.VISIBLE);
+                signinTextView.setVisibility(View.VISIBLE);
+            }
+        });
 
 
     }
