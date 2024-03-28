@@ -3,6 +3,7 @@ package com.example.indisky;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -18,10 +20,14 @@ import android.os.Handler;
 
 public class LoginPage extends AppCompatActivity {
 
-    TextView forgotpassword, typewriter, signinTextView, textView14, textView16, textView18, backTextView;
+    TextView forgotpassword, typewriter, signinTextView, textView14, textView16, textView18, backTextView, tOSTextView;
 
     CardView cardView, email, cardViewLogin, password;
     LinearLayout linearLayout;
+
+
+
+    ImageView pdfView;
 
     private String[] texts = {
             "Fly for Experience...",
@@ -52,7 +58,6 @@ public class LoginPage extends AppCompatActivity {
 
         typewriter=findViewById(R.id.typewriter);
 
-        textView14=findViewById(R.id.textView14);
         textView16=findViewById(R.id.textView16);
         textView18=findViewById(R.id.textView18);
         signinTextView=findViewById(R.id.signinTextView);
@@ -62,6 +67,8 @@ public class LoginPage extends AppCompatActivity {
         email=findViewById(R.id.email);
         cardViewLogin=findViewById(R.id.cardViewLogin);
         password=findViewById(R.id.password);
+        tOSTextView=findViewById(R.id.tOSTextView);
+        pdfView=findViewById(R.id.pdfView);
 
         String text2="Terms of Service.";
         String text3="Privacy Policy";
@@ -70,7 +77,7 @@ public class LoginPage extends AppCompatActivity {
 
         SpannableString spannableString2=new SpannableString(text2);
         spannableString2.setSpan(new UnderlineSpan(), 0, text2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-        textView14.setText(spannableString2);
+        tOSTextView.setText(spannableString2);
 
         SpannableString spannableString3=new SpannableString(text3);
         spannableString3.setSpan(new UnderlineSpan(), 0, text3.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
@@ -128,6 +135,16 @@ public class LoginPage extends AppCompatActivity {
                 cardView.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
                 signinTextView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        tOSTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String Code="1";
+                Intent intent=new Intent(LoginPage.this, com.example.indisky.pdfView.class);
+                intent.putExtra("Code", Code);
+                startActivity(intent);
             }
         });
 
