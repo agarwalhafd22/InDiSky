@@ -20,7 +20,7 @@ import android.os.Handler;
 
 public class LoginPage extends AppCompatActivity {
 
-    TextView forgotpassword, typewriter, signinTextView, textView14, textView16, textView18, backTextView, tOSTextView;
+    TextView forgotpassword, typewriter, signinTextView, textView14, privacyTextView, textView18, backTextView, tOSTextView;
 
     CardView cardView, email, cardViewLogin, password;
     LinearLayout linearLayout;
@@ -58,7 +58,7 @@ public class LoginPage extends AppCompatActivity {
 
         typewriter=findViewById(R.id.typewriter);
 
-        textView16=findViewById(R.id.textView16);
+        privacyTextView=findViewById(R.id.privacyTextView);
         textView18=findViewById(R.id.textView18);
         signinTextView=findViewById(R.id.signinTextView);
         cardView=findViewById(R.id.cardView);
@@ -81,7 +81,7 @@ public class LoginPage extends AppCompatActivity {
 
         SpannableString spannableString3=new SpannableString(text3);
         spannableString3.setSpan(new UnderlineSpan(), 0, text3.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-        textView16.setText(spannableString3);
+        privacyTextView.setText(spannableString3);
 
         SpannableString spannableString4=new SpannableString(text4);
         spannableString4.setSpan(new UnderlineSpan(), 0, text4.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
@@ -142,6 +142,16 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String Code="1";
+                Intent intent=new Intent(LoginPage.this, com.example.indisky.pdfView.class);
+                intent.putExtra("Code", Code);
+                startActivity(intent);
+            }
+        });
+
+        privacyTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String Code="2";
                 Intent intent=new Intent(LoginPage.this, com.example.indisky.pdfView.class);
                 intent.putExtra("Code", Code);
                 startActivity(intent);
