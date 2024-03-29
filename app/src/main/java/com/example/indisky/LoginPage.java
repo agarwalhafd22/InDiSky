@@ -5,29 +5,33 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 import android.os.Handler;
+import android.content.Context;
+
 
 
 public class LoginPage extends AppCompatActivity {
 
     TextView forgotpassword, typewriter, signinTextView, textView14, privacyTextView, textView18, backTextView, tOSTextView;
 
-    CardView cardView, email, cardViewLogin, password;
+    CardView cardView, email, cardViewLogin, password, cardViewCreate;
     LinearLayout linearLayout;
 
-
-
-    ImageView pdfView;
 
     private String[] texts = {
             "Fly for Experience...",
@@ -66,9 +70,15 @@ public class LoginPage extends AppCompatActivity {
         backTextView=findViewById(R.id.backTextView);
         email=findViewById(R.id.email);
         cardViewLogin=findViewById(R.id.cardViewLogin);
+        cardViewCreate=findViewById(R.id.cardViewCreate);
         password=findViewById(R.id.password);
         tOSTextView=findViewById(R.id.tOSTextView);
-        pdfView=findViewById(R.id.pdfView);
+
+        final Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_up);
+
+        final Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_down);
 
         String text2="Terms of Service.";
         String text3="Privacy Policy";
@@ -119,42 +129,117 @@ public class LoginPage extends AppCompatActivity {
         signinTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int delayMillis = 475;
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        cardViewLogin.setVisibility(View.VISIBLE);
+                        backTextView.setVisibility(View.VISIBLE);
+                    }
+                }, delayMillis);
+                linearLayout.startAnimation(slideUp);
                 cardView.setVisibility(View.INVISIBLE);
-                linearLayout.setVisibility(View.INVISIBLE);
                 signinTextView.setVisibility(View.INVISIBLE);
-                backTextView.setVisibility(View.VISIBLE);
-                cardViewLogin.setVisibility(View.VISIBLE);
+            }
+        });
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int delayMillis = 475;
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        cardViewCreate.setVisibility(View.VISIBLE);
+                        backTextView.setVisibility(View.VISIBLE);
+                    }
+                }, delayMillis);
+                linearLayout.startAnimation(slideUp);
+                cardView.setVisibility(View.INVISIBLE);
+                signinTextView.setVisibility(View.INVISIBLE);
             }
         });
 
         backTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int delayMillis = 475;
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        cardView.setVisibility(View.VISIBLE);
+                        signinTextView.setVisibility(View.VISIBLE);
+                    }
+                }, delayMillis);
+                linearLayout.startAnimation(slideDown);
                 backTextView.setVisibility(View.INVISIBLE);
                 cardViewLogin.setVisibility(View.INVISIBLE);
-                cardView.setVisibility(View.VISIBLE);
-                linearLayout.setVisibility(View.VISIBLE);
-                signinTextView.setVisibility(View.VISIBLE);
+                cardViewCreate.setVisibility(View.INVISIBLE);
             }
         });
 
         tOSTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Code="1";
-                Intent intent=new Intent(LoginPage.this, com.example.indisky.pdfView.class);
-                intent.putExtra("Code", Code);
-                startActivity(intent);
+                if (!isNetworkAvailable(LoginPage.this)) {
+                    Toast.makeText(LoginPage.this, "Check Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String Code = "1";
+                    Intent intent = new Intent(LoginPage.this, com.example.indisky.pdfView.class);
+                    intent.putExtra("Code", Code);
+                    startActivity(intent);
+                }
             }
         });
 
         privacyTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Code="2";
-                Intent intent=new Intent(LoginPage.this, com.example.indisky.pdfView.class);
-                intent.putExtra("Code", Code);
-                startActivity(intent);
+                if (!isNetworkAvailable(LoginPage.this)) {
+                    Toast.makeText(LoginPage.this, "Check Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String Code = "2";
+                    Intent intent = new Intent(LoginPage.this, com.example.indisky.pdfView.class);
+                    intent.putExtra("Code", Code);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        slideUp.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        slideDown.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
             }
         });
 
@@ -228,5 +313,15 @@ public class LoginPage extends AppCompatActivity {
                 }
             }
         }, delay);
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 }

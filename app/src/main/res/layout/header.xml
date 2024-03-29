@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:paddingTop="10dp"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
+            </ImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:textColor="@color/black">
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:paddingTop="25dp">
+
+            <Button
+                android:id="@+id/home_button"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/round_button"
+                android:text="Home"
+                android:textAllCaps="false">
+            </Button>
+
+            <Button
+                android:id="@+id/faq_button"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_toEndOf="@+id/home_button"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/round_button"
+                android:text="FAQs"
+                android:textAllCaps="false">
+            </Button>
+
+            <Button
+                android:id="@+id/contact_us_button"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_toEndOf="@+id/faq_button"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/round_button"
+                android:text="Contact Us"
+                android:textAllCaps="false">
+            </Button>
+
+
+        </RelativeLayout>
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
