@@ -15,10 +15,12 @@ import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
 import android.widget.VideoView;
 import android.os.Handler;
 import android.content.Context;
@@ -26,11 +28,17 @@ import android.content.Context;
 
 
 public class LoginPage extends AppCompatActivity {
+    
+    private UserDB userDB;
 
-    TextView forgotpassword, typewriter, signinTextView, textView14, privacyTextView, textView18, backTextView, tOSTextView;
+    TextView  typewriter, signinTextView, textView14, privacyTextView, textView18, backTextView, tOSTextView;
 
     CardView cardView, email, cardViewLogin, password, cardViewCreate;
     LinearLayout linearLayout;
+
+    EditText nameCreateEditText, emailCreateEditText, passwordCreateEditText, passwordConfirmEditText, emailEditText, passwordEditText;
+
+    Button signInButton, createAccountButton;
 
 
     private String[] texts = {
@@ -50,6 +58,8 @@ public class LoginPage extends AppCompatActivity {
 
     private static final String VIDEO_POSITION_KEY = "video_position";
     private int videoPosition = 0;
+
+    int flag=-1;
 
 
 
@@ -73,12 +83,28 @@ public class LoginPage extends AppCompatActivity {
         cardViewCreate=findViewById(R.id.cardViewCreate);
         password=findViewById(R.id.password);
         tOSTextView=findViewById(R.id.tOSTextView);
+        signInButton=findViewById(R.id.signInButton);
+        createAccountButton=findViewById(R.id.createAccountButton);
+        nameCreateEditText=findViewById(R.id.nameCreateEditText);
+        emailCreateEditText=findViewById(R.id.emailCreateEditText);
+        passwordCreateEditText=findViewById(R.id.passwordCreateEditText);
+        passwordConfirmEditText=findViewById(R.id.passwordConfirmEditText);
+        emailEditText=findViewById(R.id.emailEditText);
+        passwordEditText=findViewById(R.id.passwordEditText);
 
-        final Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slide_up);
+        userDB=new UserDB(LoginPage.this);
 
-        final Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slide_down);
+        final Animation slideUpCreate = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_up_create);
+
+        final Animation slideDownCreate = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_down_create);
+
+        final Animation slideUpLogin = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_up_login);
+
+        final Animation slideDownLogin = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_down_login);
 
         String text2="Terms of Service.";
         String text3="Privacy Policy";
@@ -129,16 +155,18 @@ public class LoginPage extends AppCompatActivity {
         signinTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int delayMillis = 475;
+                flag=0;
+                int delayMillis = 175;
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         cardViewLogin.setVisibility(View.VISIBLE);
                         backTextView.setVisibility(View.VISIBLE);
+                        signInButton.setVisibility(View.VISIBLE);
                     }
                 }, delayMillis);
-                linearLayout.startAnimation(slideUp);
+                linearLayout.startAnimation(slideDownLogin);
                 cardView.setVisibility(View.INVISIBLE);
                 signinTextView.setVisibility(View.INVISIBLE);
             }
@@ -147,16 +175,18 @@ public class LoginPage extends AppCompatActivity {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int delayMillis = 475;
+                flag=1;
+                int delayMillis = 175;
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         cardViewCreate.setVisibility(View.VISIBLE);
                         backTextView.setVisibility(View.VISIBLE);
+                        createAccountButton.setVisibility(View.VISIBLE);
                     }
                 }, delayMillis);
-                linearLayout.startAnimation(slideUp);
+                linearLayout.startAnimation(slideDownCreate);
                 cardView.setVisibility(View.INVISIBLE);
                 signinTextView.setVisibility(View.INVISIBLE);
             }
@@ -165,7 +195,7 @@ public class LoginPage extends AppCompatActivity {
         backTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int delayMillis = 475;
+                int delayMillis = 175;
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -174,7 +204,12 @@ public class LoginPage extends AppCompatActivity {
                         signinTextView.setVisibility(View.VISIBLE);
                     }
                 }, delayMillis);
-                linearLayout.startAnimation(slideDown);
+                if(flag==1)
+                    linearLayout.startAnimation(slideUpCreate);
+                else
+                    linearLayout.startAnimation(slideUpLogin);
+                createAccountButton.setVisibility(View.INVISIBLE);
+                signInButton.setVisibility(View.INVISIBLE);
                 backTextView.setVisibility(View.INVISIBLE);
                 cardViewLogin.setVisibility(View.INVISIBLE);
                 cardViewCreate.setVisibility(View.INVISIBLE);
@@ -211,35 +246,77 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
-        slideUp.setAnimationListener(new Animation.AnimationListener() {
+//        slideUpCreate.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        });
+//
+//        slideDownCreate.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        });
+
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
+            public void onClick(View view) {
+                hideKeyboard();
+                String name = nameCreateEditText.getText().toString();
+                String email = emailCreateEditText.getText().toString();
+                String password = passwordCreateEditText.getText().toString();
+                String passwordConfirm = passwordConfirmEditText.getText().toString();
+                if(name.isEmpty()||email.isEmpty()||password.isEmpty()||passwordConfirm.isEmpty())
+                    Toast.makeText(LoginPage.this, "Enter all fields", Toast.LENGTH_SHORT).show();
+                else if(!password.equals(passwordConfirm))
+                    Toast.makeText(LoginPage.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                else {
+                    userDB.addNewUser(name, email, password);
+                    Toast.makeText(LoginPage.this, "Account Created! Sign-In to continue", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-        slideDown.setAnimationListener(new Animation.AnimationListener() {
+        
+        signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
+            public void onClick(View view) {
+                hideKeyboard();
+                String email=emailEditText.getText().toString();
+                String password=passwordEditText.getText().toString();
+                if(email.isEmpty()||password.isEmpty())
+                    Toast.makeText(LoginPage.this, "Enter all fields", Toast.LENGTH_SHORT).show();
+                else
+                {
+                    boolean check=userDB.loginUser(email, password);
+                    if(check)
+                    {
+                        Toast.makeText(LoginPage.this, "Logged In...", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(LoginPage.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    else
+                        Toast.makeText(LoginPage.this, "Incorrect credentials", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -323,5 +400,13 @@ public class LoginPage extends AppCompatActivity {
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
         }
         return false;
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
