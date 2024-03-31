@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <include
             android:id="@+id/toolbar"
@@ -23,9 +24,11 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
+        android:background="@color/white"
         android:layout_width="320dp"
         android:layout_height="match_parent"
         app:headerLayout="@layout/header"
+        app:itemTextColor="@color/black"
         android:layout_gravity="start"
         app:menu="@menu/main_menu" />
 
