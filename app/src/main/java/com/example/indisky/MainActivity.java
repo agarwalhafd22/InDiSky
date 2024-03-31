@@ -22,15 +22,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
 
     UserDB userDB;
-    SessionDB sessionDB;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         userDB=new UserDB(MainActivity.this);
-        sessionDB=new SessionDB(MainActivity.this);
 
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.navigation_view);

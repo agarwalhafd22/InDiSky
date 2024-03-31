@@ -30,7 +30,6 @@ import android.content.Context;
 public class LoginPage extends AppCompatActivity {
     
     private UserDB userDB;
-    private SessionDB sessionDB;
 
     TextView  typewriter, signinTextView, textView14, privacyTextView, textView18, backTextView, tOSTextView;
 
@@ -70,7 +69,6 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         userDB=new UserDB(LoginPage.this);
-        sessionDB=new SessionDB(LoginPage.this);
 
         boolean isUserLoggedIn=userDB.isUserLoggedIn();
         if(isUserLoggedIn)
