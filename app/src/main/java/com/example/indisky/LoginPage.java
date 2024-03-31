@@ -30,6 +30,7 @@ import android.content.Context;
 public class LoginPage extends AppCompatActivity {
     
     private UserDB userDB;
+    private SessionDB sessionDB;
 
     TextView  typewriter, signinTextView, textView14, privacyTextView, textView18, backTextView, tOSTextView;
 
@@ -68,6 +69,17 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+        userDB=new UserDB(LoginPage.this);
+        sessionDB=new SessionDB(LoginPage.this);
+
+        boolean isUserLoggedIn=userDB.isUserLoggedIn();
+        if(isUserLoggedIn)
+        {
+            String userEmail=userDB.getLoggedInUserEmail();
+            Intent intent =new Intent(LoginPage.this, MainActivity.class);
+            startActivity(intent);
+        }
+
         VideoView videoView =findViewById(R.id.videoView);
 
         typewriter=findViewById(R.id.typewriter);
@@ -92,7 +104,7 @@ public class LoginPage extends AppCompatActivity {
         emailEditText=findViewById(R.id.emailEditText);
         passwordEditText=findViewById(R.id.passwordEditText);
 
-        userDB=new UserDB(LoginPage.this);
+
 
         final Animation slideUpCreate = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.slide_up_create);
@@ -292,6 +304,10 @@ public class LoginPage extends AppCompatActivity {
                     Toast.makeText(LoginPage.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 else {
                     userDB.addNewUser(name, email, password);
+                    nameCreateEditText.setText(null);
+                    emailCreateEditText.setText(null);
+                    passwordCreateEditText.setText(null);
+                    passwordConfirmEditText.setText(null);
                     Toast.makeText(LoginPage.this, "Account Created! Sign-In to continue", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -310,7 +326,10 @@ public class LoginPage extends AppCompatActivity {
                     boolean check=userDB.loginUser(email, password);
                     if(check)
                     {
+                        emailEditText.setText(null);
+                        passwordEditText.setText(null);
                         Toast.makeText(LoginPage.this, "Logged In...", Toast.LENGTH_SHORT).show();
+                        userDB.createSession(email);
                         Intent intent=new Intent(LoginPage.this, MainActivity.class);
                         startActivity(intent);
                     }
@@ -319,8 +338,6 @@ public class LoginPage extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     @Override

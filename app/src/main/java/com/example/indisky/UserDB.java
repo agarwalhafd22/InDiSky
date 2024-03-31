@@ -10,9 +10,9 @@ public class UserDB extends SQLiteOpenHelper {
 
     private static final String DB_NAME="indisky";
 
-    private static final int DB_VERSION=1;
+    private static final int DB_VERSION=2;
 
-    private static final String TABLE_NAME="Users";
+    private static final String USERS_TABLE="Users";
 
     private static final String ID_COL="ID";
 
@@ -22,6 +22,10 @@ public class UserDB extends SQLiteOpenHelper {
 
     private static final String PASSWORD="Password";
 
+    private static final String SESSION_TABLE = "Session";
+    private static final String SESSION_ID_COL = "SessionID";
+    private static final String SESSION_USER_EMAIL_COL = "UserEmail";
+
 
     public UserDB (Context context)
     {
@@ -30,13 +34,18 @@ public class UserDB extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db)
     {
-        String query = "CREATE TABLE " + TABLE_NAME + " ("
+        String createUserTableQuery = "CREATE TABLE " + USERS_TABLE + " ("
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + NAME + " TEXT, "
                 + EMAIL + " TEXT,"
                 + PASSWORD + " TEXT)";
+        db.execSQL(createUserTableQuery);
 
-        db.execSQL(query);
+        String createSessionTableQuery = "CREATE TABLE " + SESSION_TABLE + " ("
+                + SESSION_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + SESSION_USER_EMAIL_COL + " TEXT)";
+        db.execSQL(createSessionTableQuery);
+
     }
 
     public void addNewUser(String name, String email, String password)
@@ -49,7 +58,7 @@ public class UserDB extends SQLiteOpenHelper {
         values.put(EMAIL, email);
         values.put(PASSWORD, password);
 
-        db.insert(TABLE_NAME, null,values);
+        db.insert(USERS_TABLE, null,values);
         db.close();
     }
 
@@ -75,10 +84,73 @@ public class UserDB extends SQLiteOpenHelper {
         return loggedIn;
     }
 
+    public void createSession(String userEmail)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SESSION_USER_EMAIL_COL, userEmail);
+        db.insert(SESSION_TABLE, null, values);
+        db.close();
+    }
+
+    public boolean isUserLoggedIn()
+    {
+        SQLiteDatabase db =this.getReadableDatabase();
+        boolean loggedIn=false;
+        try {
+            String query = "SELECT * FROM " + SESSION_TABLE;
+            Cursor cursor = db.rawQuery(query, null);
+
+            loggedIn = cursor.moveToFirst();
+
+            cursor.close();
+        }
+        catch (Exception e){}
+        finally {
+            db.close();
+        }
+
+        return loggedIn;
+    }
+
+    public String getLoggedInUserEmail()
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+
+        String query = "SELECT *FROM "+SESSION_TABLE;
+
+        Cursor cursor =db.rawQuery(query, null);
+        String userEmail = null;
+        if(cursor.moveToFirst())
+        {
+            int emailColumnIndex=cursor.getColumnIndex(SESSION_USER_EMAIL_COL);
+            if(emailColumnIndex>=0)
+                userEmail = cursor.getString(emailColumnIndex);
+        }
+        cursor.close();
+        db.close();
+
+        return userEmail;
+    }
+
+    public  void logout()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(SESSION_TABLE, null, null);
+        db.close();
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(db);
+        // Upgrade logic for database version changes
+        if (oldVersion < 2) {
+            // Add Session table if upgrading from version 1 to version 2
+            String createSessionTableQuery = "CREATE TABLE " + SESSION_TABLE + " ("
+                    + SESSION_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + SESSION_USER_EMAIL_COL + " TEXT)";
+            db.execSQL(createSessionTableQuery);
+        }
+        // Handle other version upgrades if needed
     }
 }
