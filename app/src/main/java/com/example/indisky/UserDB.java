@@ -134,6 +134,27 @@ public class UserDB extends SQLiteOpenHelper {
         return userEmail;
     }
 
+    public String getLoggedInUserName(String userEmail)
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+
+        String getNameQuery = "SELECT " + NAME + " FROM " + USERS_TABLE + " WHERE " + EMAIL + " = '" + userEmail + "'";
+
+        Cursor cursor = db.rawQuery(getNameQuery, null);
+
+        String userName = null;
+
+        if (cursor != null && cursor.moveToFirst())
+        {
+            int nameColumnIndex=cursor.getColumnIndex(NAME);
+            if(nameColumnIndex>=0)
+                userEmail = cursor.getString(nameColumnIndex);
+            cursor.close(); // Close the cursor after use
+        }
+
+        return userEmail;
+    }
+
     public  void logout()
     {
         SQLiteDatabase db = this.getWritableDatabase();
