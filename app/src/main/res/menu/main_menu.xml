@@ -4,26 +4,37 @@
         <item
             android:id="@+id/nav_book_flight"
             android:title="Book Flight"
-            android:icon="@drawable/airplane"/>
+            android:icon="@drawable/bookflight"/>
 
         <item
             android:id="@+id/nav_check_in"
             android:title="Check-in"
-            android:icon="@drawable/indisky"/>
+            android:icon="@drawable/checkin2"/>
 
         <item
             android:id="@+id/nav_flight_status"
             android:title="Flight Status"
-            android:icon="@drawable/indisky"/>
+            android:icon="@drawable/flightstatus"/>
+
+        <item
+            android:id="@+id/my_bookings_nav"
+            android:title="My Bookings"
+            android:icon="@drawable/mybooking"/>
     </group>
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/admin_nav"
+            android:title="Admin"
+            android:icon="@drawable/admin"/>
         <item
            android:id="@+id/update_contact_details"
             android:title="Update Contact Details"
-            android:icon="@drawable/indisky"/>
+            android:icon="@drawable/updatecontact"/>
         <item
             android:id="@+id/logout"
+            android:icon="@drawable/logout"
             android:title="Logout">
         </item>
 

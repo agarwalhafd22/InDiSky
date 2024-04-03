@@ -11,9 +11,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -27,15 +31,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     TextView headerUserEmailTextView, headerUserNameTextView;
 
+    Button headerHomeButton;
+
     Toolbar toolbar;
 
     UserDB userDB;
+
+
+
+    BookFragment bookFragment;
+
+    HomeFragment homeFragment;
+
+    int bookFragmentLoaded=0;
+    int homeFragmentLoaded=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         userDB=new UserDB(MainActivity.this);
+        bookFragment=new BookFragment();
+        homeFragment=new HomeFragment();
+
+
         String userEmail = userDB.getLoggedInUserEmail();
         String userName = userDB.getLoggedInUserName(userEmail);
 
@@ -46,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.bringToFront();
 
         setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        } catch (Exception e){}
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -58,8 +81,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         headerUserEmailTextView = headerView.findViewById(R.id.userEmailTextView);
         headerUserNameTextView = headerView.findViewById(R.id.userNameTextView);
+        headerHomeButton = headerView.findViewById(R.id.home_button);
         headerUserEmailTextView.setText(userEmail);
         headerUserNameTextView.setText(userName);
+
+        headerHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bookFragmentLoaded=0;
+                navigationView.getMenu().findItem(R.id.nav_book_flight).setChecked(false);
+                drawerLayout.closeDrawer(GravityCompat.START);
+                bottomNavigationView.getMenu().findItem(R.id.home_bottom_nav).setChecked(true);
+                if(homeFragmentLoaded==0)
+                {
+                    replaceFragment(homeFragment);
+                    homeFragmentLoaded=1;
+                }
+            }
+        });
     }
 
     public void onBackPressed() {
@@ -84,18 +123,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(menuItem.getItemId()==R.id.nav_book_flight)
         {
-            menuItem.setChecked(false);
+            if(bookFragmentLoaded==0) {
+                replaceFragment(bookFragment);
+                bookFragmentLoaded=1;
+            }
             drawerLayout.closeDrawer(GravityCompat.START);
             bottomNavigationView.getMenu().findItem(R.id.book_flight_bottom_nav).setChecked(true);
+            menuItem.setChecked(false);
         }
-//        else if(menuItem.getItemId()==R.id.home_bottom_nav)
-//        {
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//            menuItem.setChecked((false));
-//        }
-
+        else if(menuItem.getItemId()==R.id.book_flight_bottom_nav)
+        {
+            homeFragmentLoaded=0;
+            if(bookFragmentLoaded==0) {
+                replaceFragment(bookFragment);
+                bookFragmentLoaded=1;
+            }
+            drawerLayout.closeDrawer(GravityCompat.START);
+            navigationView.getMenu().findItem(R.id.nav_book_flight).setChecked(true);
+            menuItem.setChecked(false);
+        }
+        else if(menuItem.getItemId()==R.id.home_bottom_nav)
+        {
+            bookFragmentLoaded=0;
+            if(homeFragmentLoaded==0)
+            {
+                replaceFragment(homeFragment);
+                homeFragmentLoaded=1;
+            }
+            navigationView.getMenu().findItem(R.id.nav_book_flight).setChecked(false);
+        }
+        else if(menuItem.getItemId()==R.id.admin_nav)
+        {
+            Intent intent =new Intent(MainActivity.this, Admin.class);
+            startActivity((intent));
+        }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void replaceFragment(Fragment fragment)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();;
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.book_flight_fragment, fragment);
+        fragmentTransaction.commit();
     }
 
 }

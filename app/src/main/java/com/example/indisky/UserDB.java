@@ -10,21 +10,22 @@ public class UserDB extends SQLiteOpenHelper {
 
     private static final String DB_NAME="indisky";
 
-    private static final int DB_VERSION=2;
+    private static final int DB_VERSION=3;
 
-    private static final String USERS_TABLE="Users";
+    protected static final String USERS_TABLE="Users";
 
-    private static final String ID_COL="ID";
+    protected static final String ID_COL="ID";
 
-    private static final String NAME="Name";
+    protected static final String NAME="Name";
 
-    private static final String EMAIL="Email_ID";
+    protected static final String EMAIL="Email_ID";
 
-    private static final String PASSWORD="Password";
+    protected static final String PASSWORD="Password";
 
-    private static final String SESSION_TABLE = "Session";
-    private static final String SESSION_ID_COL = "SessionID";
-    private static final String SESSION_USER_EMAIL_COL = "UserEmail";
+    protected static final String SESSION_TABLE = "Session";
+    protected static final String SESSION_ID_COL = "SessionID";
+    protected static final String SESSION_USER_EMAIL_COL = "UserEmail";
+    protected static final String SESSION_USER_ID_COL = "User_ID";
 
 
     public UserDB (Context context)
@@ -43,7 +44,8 @@ public class UserDB extends SQLiteOpenHelper {
 
         String createSessionTableQuery = "CREATE TABLE " + SESSION_TABLE + " ("
                 + SESSION_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + SESSION_USER_EMAIL_COL + " TEXT)";
+                + SESSION_USER_EMAIL_COL + " TEXT, "
+                + SESSION_USER_ID_COL + " INTEGER)";
         db.execSQL(createSessionTableQuery);
 
     }
@@ -62,7 +64,7 @@ public class UserDB extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean loginUser(String email, String password) {
+    public int loginUser(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Define the query string with placeholders for selection arguments
@@ -74,22 +76,33 @@ public class UserDB extends SQLiteOpenHelper {
         // Execute the raw query
         Cursor cursor = db.rawQuery(query, selectionArgs);
 
-        // Check if the cursor contains any rows
-        boolean loggedIn = cursor.moveToFirst();
+        int userID=0;
 
-        // Close the cursor and database
+        if(cursor.moveToFirst())
+        {
+            int idColumnIndex=cursor.getColumnIndex(ID_COL);
+            if(idColumnIndex>=0)
+                userID = cursor.getInt(idColumnIndex);
+
+            cursor.close();
+            db.close();
+            return userID;
+        }
+
+
         cursor.close();
         db.close();
 
-        return loggedIn;
+        return 0;
     }
 
-    public void createSession(String userEmail)
+    public void createSession(String userEmail, int userID)
     {
         SQLiteDatabase db=this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(SESSION_USER_EMAIL_COL, userEmail);
+        values.put(SESSION_USER_ID_COL, userID);
         db.insert(SESSION_TABLE, null, values);
         db.close();
     }
@@ -162,16 +175,19 @@ public class UserDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void dropRow()
+    {
+        SQLiteDatabase db= this.getWritableDatabase();
+
+
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Upgrade logic for database version changes
-        if (oldVersion < 2) {
-            // Add Session table if upgrading from version 1 to version 2
-            String createSessionTableQuery = "CREATE TABLE " + SESSION_TABLE + " ("
-                    + SESSION_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + SESSION_USER_EMAIL_COL + " TEXT)";
-            db.execSQL(createSessionTableQuery);
+
+        if (oldVersion < 3 && newVersion == 3) {
+            db.execSQL("ALTER TABLE " + SESSION_TABLE + " ADD COLUMN " + SESSION_USER_ID_COL + " INTEGER");
         }
-        // Handle other version upgrades if needed
+
     }
 }

@@ -3,7 +3,15 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#4B0082"
+    android:background="#fcba03"
     android:elevation="4dp">
 
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:src="@drawable/indisky"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center">
+
+    </ImageView>
 </androidx.appcompat.widget.Toolbar>

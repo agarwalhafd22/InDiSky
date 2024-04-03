@@ -321,13 +321,13 @@ public class LoginPage extends AppCompatActivity {
                     Toast.makeText(LoginPage.this, "Enter all fields", Toast.LENGTH_SHORT).show();
                 else
                 {
-                    boolean check=userDB.loginUser(email, password);
-                    if(check)
+                    int check=userDB.loginUser(email, password);
+                    if(check!=0)
                     {
                         emailEditText.setText(null);
                         passwordEditText.setText(null);
                         Toast.makeText(LoginPage.this, "Logged In...", Toast.LENGTH_SHORT).show();
-                        userDB.createSession(email);
+                        userDB.createSession(email, check);
                         Intent intent=new Intent(LoginPage.this, MainActivity.class);
                         startActivity(intent);
                     }
