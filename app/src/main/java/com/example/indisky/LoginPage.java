@@ -178,6 +178,7 @@ public class LoginPage extends AppCompatActivity {
                 }, delayMillis);
                 linearLayout.startAnimation(slideDownLogin);
                 cardView.setVisibility(View.INVISIBLE);
+                typewriter.setVisibility(View.INVISIBLE);
                 signinTextView.setVisibility(View.INVISIBLE);
             }
         });
@@ -198,6 +199,7 @@ public class LoginPage extends AppCompatActivity {
                 }, delayMillis);
                 linearLayout.startAnimation(slideDownCreate);
                 cardView.setVisibility(View.INVISIBLE);
+                typewriter.setVisibility(View.INVISIBLE);
                 signinTextView.setVisibility(View.INVISIBLE);
             }
         });
@@ -212,6 +214,7 @@ public class LoginPage extends AppCompatActivity {
                     public void run() {
                         cardView.setVisibility(View.VISIBLE);
                         signinTextView.setVisibility(View.VISIBLE);
+                        typewriter.setVisibility(View.VISIBLE);
                     }
                 }, delayMillis);
                 if(flag==1)

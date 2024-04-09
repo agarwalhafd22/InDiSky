@@ -46,17 +46,6 @@
 
         </RadioButton>
 
-        <RadioButton
-                android:id="@+id/multiCityRadioButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:buttonTint="@color/black"
-                android:text="Multi City"
-                android:textColor="@color/black"
-                android:textStyle="bold">
-
-            </RadioButton>
 
 
 
@@ -65,7 +54,7 @@
 
     <EditText
         android:id="@+id/fromEditText"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittextcustom"
         android:ems="10"
@@ -78,14 +67,14 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseTripTypeRadioGroup"
-        app:layout_constraintVertical_bias="0.028" />
+        app:layout_constraintVertical_bias="0.027" />
 
     <EditText
         android:id="@+id/toEditText"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittextcustom"
         android:ems="10"
@@ -98,10 +87,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fromEditText"
-        app:layout_constraintVertical_bias="0.018" />
+        app:layout_constraintVertical_bias="0.015" />
 
     <ImageView
         android:id="@+id/reverseImageView"
@@ -112,10 +101,10 @@
         android:src="@drawable/reversearraows2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.221"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toEndOf="@+id/fromEditText"
         app:layout_constraintTop_toBottomOf="@+id/chooseTripTypeRadioGroup"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintVertical_bias="0.046" />
 
     <TextView
         android:id="@+id/calendarTextView"
@@ -129,8 +118,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/dateImageView"
-        app:layout_constraintTop_toBottomOf="@+id/fromEditText"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintTop_toBottomOf="@+id/toEditText"
+        app:layout_constraintVertical_bias="0.061" />
 
     <ImageView
         android:id="@+id/dateImageView"
@@ -141,8 +130,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromEditText"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintTop_toBottomOf="@+id/toEditText"
+        app:layout_constraintVertical_bias="0.062" />
 
     <CalendarView
         android:id="@+id/calendarView"

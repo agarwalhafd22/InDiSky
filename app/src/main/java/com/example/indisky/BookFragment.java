@@ -59,7 +59,6 @@ public class BookFragment extends Fragment {
         chooseTripTypeRadioGroup=view.findViewById(R.id.chooseTripTypeRadioGroup);
         oneWayRadioButton=view.findViewById(R.id.oneWayRadioButton);
         roundTripRadioButton=view.findViewById(R.id.roundTripRadioButton);
-        multiCityRadioButton=view.findViewById(R.id.multiCityRadioButton);
 
         chooseTripTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -75,10 +74,6 @@ public class BookFragment extends Fragment {
                     dateImageView2.setVisibility(View.VISIBLE);
                     calendarTextView2.setVisibility(View.VISIBLE);
                     textView43.setVisibility(View.VISIBLE);
-                }
-                else if(i==R.id.multiCityRadioButton)
-                {
-
                 }
             }
         });

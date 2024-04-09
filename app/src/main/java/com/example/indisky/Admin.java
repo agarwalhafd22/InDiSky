@@ -1,8 +1,11 @@
 package com.example.indisky;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -10,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Admin extends AppCompatActivity {
 
-    private UserDB userDB; // Assuming UserDB is your SQLiteOpenHelper class
-    private TableLayout tableLayoutUsers, tableLayoutSession;
+    Button addNewFlightButton;
+    private UserDB userDB;
+    private FlightDB flightDB;
+    private TableLayout tableLayoutUsers, tableLayoutSession, tableLayoutFlight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +24,93 @@ public class Admin extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
         userDB = new UserDB(this);
+        flightDB = new FlightDB(this);
         tableLayoutUsers = findViewById(R.id.tableLayoutUsers);
         tableLayoutSession = findViewById(R.id.tableLayoutSession);
+        tableLayoutFlight = findViewById(R.id.tableLayoutFlight);
+        addNewFlightButton=findViewById(R.id.addNewFlightButton);
+
+        addNewFlightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(Admin.this, NewFlight.class);
+                startActivity(intent);
+            }
+        });
 
         displayUsers();
         displaySession();
+        displayFlight();
+
+
+    }
+
+    private void displayFlight() {
+        SQLiteDatabase db = flightDB.getReadableDatabase();
+        String[] projection = {
+                FlightDB.FLIGHT_ID,
+                FlightDB.ORIGIN,
+                FlightDB.DEST,
+                FlightDB.DEPART_DATE,
+                FlightDB.ARRIVAL_DATE,
+                FlightDB.PRICE,
+                FlightDB.SEAT_AVAIL
+        };
+
+        Cursor cursor = db.query(FlightDB.TABLE_NAME, projection, null, null, null, null, null);
+
+        while(cursor.moveToNext()){
+            String flightID = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.FLIGHT_ID));
+            String to = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.ORIGIN));
+            String from = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.DEST));
+            String depart = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.DEPART_DATE));
+            String arrival = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.ARRIVAL_DATE));
+            int price = cursor.getInt(cursor.getColumnIndexOrThrow(FlightDB.PRICE));
+            int seat = cursor.getInt(cursor.getColumnIndexOrThrow(FlightDB.SEAT_AVAIL));
+
+            TableRow row = new TableRow(this);
+
+            TextView flightTableIDTextView = new TextView(this);
+            flightTableIDTextView.setText(flightID);
+            flightTableIDTextView.setPadding(8, 8, 8, 8);
+            row.addView(flightTableIDTextView);
+
+            TextView toTextView = new TextView(this);
+            toTextView.setText(to);
+            toTextView.setPadding(8, 8, 8, 8);
+            row.addView(toTextView);
+
+            TextView fromTextView = new TextView(this);
+            fromTextView.setText(from);
+            fromTextView.setPadding(8, 8, 8, 8);
+            row.addView(fromTextView);
+
+            TextView departTextView = new TextView(this);
+            departTextView.setText(depart);
+            departTextView.setPadding(8, 8, 8, 8);
+            row.addView(departTextView);
+
+            TextView arrivalTextView = new TextView(this);
+            arrivalTextView.setText(arrival);
+            arrivalTextView.setPadding(8, 8, 8, 8);
+            row.addView(arrivalTextView);
+
+            TextView priceTextView = new TextView(this);
+            priceTextView.setText(String.valueOf(price));
+            priceTextView.setPadding(8, 8, 8, 8);
+            row.addView(priceTextView);
+
+            TextView seatTextView = new TextView(this);
+            seatTextView.setText(String.valueOf(seat));
+            seatTextView.setPadding(8, 8, 8, 8);
+            row.addView(seatTextView);
+
+
+            tableLayoutFlight.addView(row);
+        }
+
+        cursor.close();
+        db.close();
     }
 
     private void displaySession() {

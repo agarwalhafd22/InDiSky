@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -28,28 +32,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="ID"></TextView>
+                    android:text="ID">
+                </TextView>
 
                 <TextView
                     android:id="@+id/userTableName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="Name"></TextView>
+                    android:text="Name">
+                </TextView>
 
                 <TextView
                     android:id="@+id/userTableEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="Email"></TextView>
+                    android:text="Email">
+                </TextView>
 
                 <TextView
                     android:id="@+id/userTablePassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="Password"></TextView>
+                    android:text="Password">
+                </TextView>
 
             </TableRow>
         </TableLayout>
@@ -77,7 +85,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="Session_ID"></TextView>
+                    android:text="Session_ID">
+                </TextView>
 
 
                 <TextView
@@ -85,30 +94,110 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="Email"></TextView>
+                    android:text="Email">
+                </TextView>
 
                 <TextView
                     android:id="@+id/sessionTableUserID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="User_ID"></TextView>
+                    android:text="User_ID">
+                </TextView>
 
 
             </TableRow>
         </TableLayout>
     </HorizontalScrollView>
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView54">
+
+        <TableLayout
+            android:id="@+id/tableLayoutFlight"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/flightTableID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Flight_ID">
+                </TextView>
+
+
+                <TextView
+                    android:id="@+id/flightTableOrigin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="To">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/flightTableDest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="From">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/flightTableDepart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Depart_Date">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/flightTableArrival"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Arrival_Date">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/flightTablePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Price">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/flightTableSeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Seat_Avail">
+                </TextView>
+
+            </TableRow>
+        </TableLayout>
+    </HorizontalScrollView>
+
+
     <TextView
         android:id="@+id/textView44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="User"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/addNewFlightButton" />
 
     <TextView
         android:id="@+id/textView45"
@@ -120,4 +209,27 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+    <Button
+        android:id="@+id/addNewFlightButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="New Flight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:text="Flight"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

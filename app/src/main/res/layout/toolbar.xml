@@ -2,8 +2,9 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#fcba03"
+    android:layout_height="60dp"
+    android:background="@drawable/toolbarbackground"
+    android:theme="@style/Base.Theme.InDiSky"
     android:elevation="4dp">
 
     <ImageView
@@ -14,4 +15,6 @@
         android:layout_gravity="center">
 
     </ImageView>
+
+
 </androidx.appcompat.widget.Toolbar>
