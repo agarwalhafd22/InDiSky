@@ -9,7 +9,7 @@ public class FlightDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 5;
     protected static final String TABLE_NAME = "Flight";
     protected static final String FLIGHT_ID = "Flight_ID";
     protected static final String ORIGIN = "Origin";
