@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     tempFlightDB tmpFlightDB;
 
-    int count = 0;
-
+    ChooseCity chooseCity;
 
 
     BookFragment bookFragment;
@@ -55,11 +54,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         userDB=new UserDB(MainActivity.this);
 
-//        tmpFlightDB = new tempFlightDB(MainActivity.this);
-//        tmpFlightDB.addOrigin("From");
-//        tmpFlightDB.addDest("To");
 
 
         bookFragment=new BookFragment();

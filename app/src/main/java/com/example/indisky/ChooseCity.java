@@ -31,7 +31,9 @@ public class ChooseCity extends AppCompatActivity {
 
     tempFlightDB tmpFlightDB;
 
+
     int Status = 0;
+
 
     ArrayAdapter<String> arrayAdapter;
 
@@ -41,6 +43,7 @@ public class ChooseCity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_city);
 
         tmpFlightDB = new tempFlightDB(this);
+
 
         Intent intent = getIntent();
         String data = intent.getStringExtra("type");

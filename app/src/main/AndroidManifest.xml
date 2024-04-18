@@ -17,6 +17,12 @@
         android:theme="@style/Theme.InDiSky"
         tools:targetApi="31">
         <activity
+            android:name=".PassengerDetails"
+            android:exported="false" />
+        <activity
+            android:name=".FlightSummary"
+            android:exported="false" />
+        <activity
             android:name=".ChooseCity"
             android:exported="false" />
         <activity

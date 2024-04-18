@@ -11,13 +11,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 public class BookFragment extends Fragment {
@@ -30,9 +31,21 @@ public class BookFragment extends Fragment {
 
     RadioButton oneWayRadioButton, roundTripRadioButton, multiCityRadioButton;
 
-    TextView calendarTextView, calendarTextView2, textView43;
+    TextView calendarTextView, calendarTextView2, textView43, priceTextView, seatsTextView;
 
     CalendarView calendarView, calendarView2;
+
+    Button bookButton;
+
+    String date, dateCheck;
+
+    int toMonth = 0;
+    int toDay = 0;
+
+    int fromMonth = 0;
+    int fromDay = 0;
+
+    String firstOrigin, firstDest;
 
 
 
@@ -45,9 +58,10 @@ public class BookFragment extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_book, container, false);
 
-        tempFlightDB tmpFlightDB = new tempFlightDB(getActivity());
-        String firstOrigin = tmpFlightDB.getFirstOrigin();
-        String firstDest = tmpFlightDB.getFirstDest();
+
+
+
+
 
         fromEditText=view.findViewById(R.id.fromEditText);
         toEditText=view.findViewById(R.id.toEditText);
@@ -59,6 +73,9 @@ public class BookFragment extends Fragment {
         calendarView=view.findViewById(R.id.calendarView);
         calendarView2=view.findViewById(R.id.calendarView2);
         textView43=view.findViewById(R.id.textView43);
+        priceTextView=view.findViewById(R.id.priceTextView);
+        seatsTextView=view.findViewById(R.id.seatsTextView);
+        bookButton=view.findViewById(R.id.bookButton);
 
         calendarView.setVisibility(View.INVISIBLE);
         calendarView2.setVisibility(View.INVISIBLE);
@@ -67,12 +84,20 @@ public class BookFragment extends Fragment {
         oneWayRadioButton=view.findViewById(R.id.oneWayRadioButton);
         roundTripRadioButton=view.findViewById(R.id.roundTripRadioButton);
 
+        tempFlightDB tmpFlightDB = new tempFlightDB(getActivity());
+        firstOrigin = tmpFlightDB.getFirstOrigin();
+        firstDest = tmpFlightDB.getFirstDest();
+
         fromEditText.setText(firstOrigin);
         toEditText.setText(firstDest);
 
+        setDetails();
 
 
-        chooseTripTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+
+
+        chooseTripTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {              // to choose if one-way or round trip
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if(i==R.id.oneWayRadioButton)
@@ -90,17 +115,18 @@ public class BookFragment extends Fragment {
             }
         });
 
-        reverseImageView.setOnClickListener(new View.OnClickListener() {
+        reverseImageView.setOnClickListener(new View.OnClickListener() {               //switches origin and destination names
             @Override
             public void onClick(View view) {
                 String from=fromEditText.getText().toString();
                 String to=toEditText.getText().toString();
                 fromEditText.setText(to);
                 toEditText.setText(from);
+                setDetails();
             }
         });
 
-        dateImageView.setOnClickListener(new View.OnClickListener() {
+        dateImageView.setOnClickListener(new View.OnClickListener() {             //one-way calendar image, on clicking calendar opens
             @Override
             public void onClick(View view) {
                 calendarView.setVisibility(View.VISIBLE);
@@ -110,7 +136,7 @@ public class BookFragment extends Fragment {
             }
         });
 
-        calendarTextView.setOnClickListener(new View.OnClickListener() {
+        calendarTextView.setOnClickListener(new View.OnClickListener() {            //one-way calendar text, on clicking calendar opens
             @Override
             public void onClick(View view) {
                 calendarView.setVisibility(View.VISIBLE);
@@ -120,7 +146,7 @@ public class BookFragment extends Fragment {
             }
         });
 
-        dateImageView2.setOnClickListener(new View.OnClickListener() {
+        dateImageView2.setOnClickListener(new View.OnClickListener() {          //round trip calendar image, on clicking calendar opens
             @Override
             public void onClick(View view) {
                 calendarView2.setVisibility(View.VISIBLE);
@@ -130,7 +156,7 @@ public class BookFragment extends Fragment {
             }
         });
 
-        calendarTextView2.setOnClickListener(new View.OnClickListener() {
+        calendarTextView2.setOnClickListener(new View.OnClickListener() {         //round trip calendar text, on clicking calendar opens
             @Override
             public void onClick(View view) {
                 calendarView2.setVisibility(View.VISIBLE);
@@ -140,12 +166,15 @@ public class BookFragment extends Fragment {
             }
         });
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {          //calendarView listener (one-way), listens for selected date and sets on the text view
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 calendarView.setVisibility(View.INVISIBLE);
-                String date = Integer.toString(day)+ " " + returnMonth(month);
+                toMonth=month+1;
+                toDay=day;
+                date = Integer.toString(day)+ " " + returnMonth(month);
                 calendarTextView.setText(date);
+                setDetails();
                 if(chooseTripTypeRadioGroup.getCheckedRadioButtonId()==R.id.roundTripRadioButton) {
                     dateImageView2.setVisibility(View.VISIBLE);
                     calendarTextView2.setVisibility(View.VISIBLE);
@@ -154,11 +183,11 @@ public class BookFragment extends Fragment {
             }
         });
 
-        calendarView2.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendarView2.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {         //calendarView listener (round trip), listens for selected date and sets on the text view
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 calendarView.setVisibility(View.INVISIBLE);
-                String date = Integer.toString(day)+ " " + returnMonth(month);
+                date = Integer.toString(day)+ " " + returnMonth(month);
                 calendarTextView2.setText(date);
                 if(chooseTripTypeRadioGroup.getCheckedRadioButtonId()==R.id.roundTripRadioButton) {
                     dateImageView2.setVisibility(View.VISIBLE);
@@ -168,7 +197,7 @@ public class BookFragment extends Fragment {
             }
         });
 
-        fromEditText.setOnClickListener(new View.OnClickListener() {
+        fromEditText.setOnClickListener(new View.OnClickListener() {                 //changes activity when From button is clicked and takes to the list of flights of origin
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ChooseCity.class);
@@ -177,11 +206,21 @@ public class BookFragment extends Fragment {
             }
         });
 
-        toEditText.setOnClickListener(new View.OnClickListener() {
+        toEditText.setOnClickListener(new View.OnClickListener() {               ////changes activity when To button is clicked and takes to the list of flights of destination
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ChooseCity.class);
                 intent.putExtra("type", "dest");
+                startActivity(intent);
+            }
+        });
+
+        bookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PassengerDetails.class);
+                intent.putExtra("date", date);
+                intent.putExtra("dateCheck", dateCheck);
                 startActivity(intent);
             }
         });
@@ -232,5 +271,29 @@ public class BookFragment extends Fragment {
         }
 
         return "Jan";
+    }
+
+    private void setDetails()
+    {
+        calendarView=view.findViewById(R.id.calendarView);
+        if(!calendarTextView.getText().equals("Date")) {
+            dateCheck = Integer.toString(toDay)+"/0"+Integer.toString(toMonth)+"/2024";
+
+            FlightDB flightDB = new FlightDB(getActivity());
+
+            int price = flightDB.getPriceByOriginAndDestAndDate(firstOrigin, firstDest, dateCheck);
+            int seats = flightDB.getSeatsByOriginAndDestAndDate(firstOrigin, firstDest, dateCheck);
+
+
+            if (price == -1)
+                priceTextView.setText("No Flights");
+            else
+                priceTextView.setText(Integer.toString(price));
+
+            if (seats == -1)
+                seatsTextView.setText("No Flights");
+            else
+                seatsTextView.setText(Integer.toString(seats));
+        }
     }
 }

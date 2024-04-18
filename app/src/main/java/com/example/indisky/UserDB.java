@@ -10,7 +10,7 @@ public class UserDB extends SQLiteOpenHelper {
 
     private static final String DB_NAME="indisky";
 
-    private static final int DB_VERSION=7;
+    private static final int DB_VERSION=9;
 
     protected static final String USERS_TABLE="Users";
 
@@ -175,11 +175,32 @@ public class UserDB extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void dropRow()
-    {
-        SQLiteDatabase db= this.getWritableDatabase();
+    public int getSessionUserID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int userID = 0;
 
+        try {
+            // Define the query to retrieve the user ID from the session table
+            String query = "SELECT " + SESSION_USER_ID_COL + " FROM " + SESSION_TABLE;
 
+            // Execute the query
+            Cursor cursor = db.rawQuery(query, null);
+
+            // Check if the cursor has any rows
+            if (cursor.moveToFirst()) {
+                // Retrieve the user ID from the cursor
+                userID = cursor.getInt(cursor.getColumnIndex(SESSION_USER_ID_COL));
+            }
+
+            cursor.close();
+        } catch (Exception e) {
+            // Handle any exceptions
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
+
+        return userID;
     }
 
     @Override

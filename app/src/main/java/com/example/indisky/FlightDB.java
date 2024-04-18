@@ -10,7 +10,7 @@ public class FlightDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 7;
+    private static final int DB_VERSION = 9;
     protected static final String TABLE_NAME = "Flight";
     protected static final String FLIGHT_ID = "Flight_ID";
     protected static final String ORIGIN = "Origin";
@@ -55,9 +55,125 @@ public class FlightDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    public int getPriceByOriginAndDestAndDate(String origin, String dest, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int price = -1; // Default value if no matching record is found
+
+        // Define the columns you want to retrieve
+        String[] columns = {PRICE};
+
+        // Define the selection criteria
+        String selection = ORIGIN + " = ? AND " + DEST + " = ? AND " + DEPART_DATE + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {origin, dest, date};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the price from the cursor
+            price = cursor.getInt(cursor.getColumnIndex(PRICE));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return price;
+    }
+
+
+    public int getSeatsByOriginAndDestAndDate(String origin, String dest, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int seats = -1; // Default value if no matching record is found
+
+        // Define the columns you want to retrieve
+        String[] columns = {SEAT_AVAIL};
+
+        // Define the selection criteria
+        String selection = ORIGIN + " = ? AND " + DEST + " = ? AND " + DEPART_DATE + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {origin, dest, date};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the price from the cursor
+            seats = cursor.getInt(cursor.getColumnIndex(SEAT_AVAIL));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return seats;
+    }
+
+    public String getFlightIDByOriginAndDestAndDate(String origin, String dest, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String flightID=null;
+
+        // Define the columns you want to retrieve
+        String[] columns = {FLIGHT_ID};
+
+        // Define the selection criteria
+        String selection = ORIGIN + " = ? AND " + DEST + " = ? AND " + DEPART_DATE + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {origin, dest, date};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the price from the cursor
+            flightID = cursor.getString(cursor.getColumnIndex(FLIGHT_ID));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return flightID;
+    }
+
+    public void reduceSeatAvailability(String origin, String dest, String date, int currentSeats) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        // Reduce the available seats by one
+        int updatedSeats = currentSeats - 1;
+        if (updatedSeats < 0) {
+            // Ensure that the number of available seats does not go below zero
+            updatedSeats = 0;
+        }
+
+        // Prepare content values with the updated seat availability
+        ContentValues values = new ContentValues();
+        values.put(SEAT_AVAIL, updatedSeats);
+
+        // Define the update criteria
+        String selection = ORIGIN + " = ? AND " + DEST + " = ? AND " + DEPART_DATE + " = ?";
+        String[] selectionArgs = {origin, dest, date};
+
+        // Execute the update query
+        db.update(TABLE_NAME, values, selection, selectionArgs);
+
+        // Close the database
+        db.close();
+    }
+
+
     public Cursor getOriginFlights(SQLiteDatabase db) {
         return db.rawQuery("SELECT Origin FROM " + TABLE_NAME, null);
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
