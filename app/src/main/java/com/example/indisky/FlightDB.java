@@ -2,6 +2,7 @@ package com.example.indisky;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -9,7 +10,7 @@ public class FlightDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 7;
     protected static final String TABLE_NAME = "Flight";
     protected static final String FLIGHT_ID = "Flight_ID";
     protected static final String ORIGIN = "Origin";
@@ -52,6 +53,10 @@ public class FlightDB extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
 
         db.close();
+    }
+
+    public Cursor getOriginFlights(SQLiteDatabase db) {
+        return db.rawQuery("SELECT Origin FROM " + TABLE_NAME, null);
     }
 
     @Override

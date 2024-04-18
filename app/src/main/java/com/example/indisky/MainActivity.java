@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     UserDB userDB;
 
+    tempFlightDB tmpFlightDB;
+
+    int count = 0;
+
 
 
     BookFragment bookFragment;
@@ -52,6 +56,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         userDB=new UserDB(MainActivity.this);
+
+//        tmpFlightDB = new tempFlightDB(MainActivity.this);
+//        tmpFlightDB.addOrigin("From");
+//        tmpFlightDB.addDest("To");
+
+
         bookFragment=new BookFragment();
         homeFragment=new HomeFragment();
 
@@ -84,6 +94,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         headerHomeButton = headerView.findViewById(R.id.home_button);
         headerUserEmailTextView.setText(userEmail);
         headerUserNameTextView.setText(userName);
+
+        int fragmentIndex = getIntent().getIntExtra("fragmentIndex", 1); // Default to 0 if not found
+
+        // Navigate to the desired fragment based on the index
+        if (fragmentIndex == 0) {
+            // Navigate to Fragment A
+            replaceFragment(homeFragment);
+            homeFragmentLoaded = 1; // Update loaded flag
+        } else if (fragmentIndex == 1) {
+            // Navigate to Fragment B
+            replaceFragment(bookFragment);
+            bookFragmentLoaded = 1;
+            bottomNavigationView.getMenu().findItem(R.id.book_flight_bottom_nav).setChecked(true);// Update loaded flag
+        }
 
         headerHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void replaceFragment(Fragment fragment)
     {
-        FragmentManager fragmentManager = getSupportFragmentManager();;
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.book_flight_fragment, fragment);
         fragmentTransaction.commit();

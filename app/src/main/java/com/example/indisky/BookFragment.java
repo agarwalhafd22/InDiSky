@@ -1,5 +1,8 @@
 package com.example.indisky;
 
+import static android.content.Intent.getIntent;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,12 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.os.Handler;
 
 
 
@@ -33,6 +34,8 @@ public class BookFragment extends Fragment {
 
     CalendarView calendarView, calendarView2;
 
+
+
     View view;
 
 
@@ -41,6 +44,10 @@ public class BookFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_book, container, false);
+
+        tempFlightDB tmpFlightDB = new tempFlightDB(getActivity());
+        String firstOrigin = tmpFlightDB.getFirstOrigin();
+        String firstDest = tmpFlightDB.getFirstDest();
 
         fromEditText=view.findViewById(R.id.fromEditText);
         toEditText=view.findViewById(R.id.toEditText);
@@ -59,6 +66,11 @@ public class BookFragment extends Fragment {
         chooseTripTypeRadioGroup=view.findViewById(R.id.chooseTripTypeRadioGroup);
         oneWayRadioButton=view.findViewById(R.id.oneWayRadioButton);
         roundTripRadioButton=view.findViewById(R.id.roundTripRadioButton);
+
+        fromEditText.setText(firstOrigin);
+        toEditText.setText(firstDest);
+
+
 
         chooseTripTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -156,8 +168,27 @@ public class BookFragment extends Fragment {
             }
         });
 
+        fromEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChooseCity.class);
+                intent.putExtra("type", "origin");
+                startActivity(intent);
+            }
+        });
+
+        toEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChooseCity.class);
+                intent.putExtra("type", "dest");
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
+
 
     private String returnMonth(int num)
     {
