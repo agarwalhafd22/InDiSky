@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cardViewMyBookings"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -14,7 +14,7 @@
         android:elevation="10dp"
         android:padding="10dp"
         app:cardBackgroundColor="#bddff8"
-        app:contentPadding="15dp"
+        app:contentPadding="20dp"
         app:cardCornerRadius="10dp">
 
         <LinearLayout
@@ -27,13 +27,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/nameTextViewMyBookings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView58"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/originDateTextView"
+                        android:id="@+id/originTextViewMyBookings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -49,7 +62,7 @@
                         android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/destDateTextView"
+                        android:id="@+id/destTextViewMyBookings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -66,17 +79,22 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/textView56"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/flightIDTextView"
+                        android:id="@+id/dateTextViewMyBookings"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textAlignment="center"
+                        android:textAlignment="textStart"
                         android:textSize="16sp" />
 
                     <TextView
@@ -86,7 +104,7 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/priceSearchFlightTextView"
+                        android:id="@+id/priceTextViewMyBookings"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -99,7 +117,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imageView10"
             android:layout_width="32dp"
             android:layout_height="34dp"
             android:layout_gravity="center|end"

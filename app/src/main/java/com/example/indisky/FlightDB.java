@@ -13,7 +13,7 @@ public class FlightDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 9;
+    private static final int DB_VERSION = 11;
     protected static final String TABLE_NAME = "Flight";
     protected static final String FLIGHT_ID = "Flight_ID";
     protected static final String ORIGIN = "Origin";
@@ -85,6 +85,35 @@ public class FlightDB extends SQLiteOpenHelper {
         db.close();
 
         return price;
+    }
+
+    public int getSeatByOriginAndDestAndDate(String origin, String dest, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int seat = -1; // Default value if no matching record is found
+
+        // Define the columns you want to retrieve
+        String[] columns = {SEAT_AVAIL};
+
+        // Define the selection criteria
+        String selection = ORIGIN + " = ? AND " + DEST + " = ? AND " + DEPART_DATE + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {origin, dest, date};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the price from the cursor
+            seat = cursor.getInt(cursor.getColumnIndex(SEAT_AVAIL));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return seat;
     }
 
     public int getPriceByFlightID(String flightID) {
@@ -227,6 +256,42 @@ public class FlightDB extends SQLiteOpenHelper {
         db.close();
 
         return flights;
+    }
+
+
+    public MyBookingsFlightDetails getFlightDetailsByFlightID(String flightID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        MyBookingsFlightDetails myBookingsFlightDetails = null;
+
+        // Define the columns you want to retrieve
+        String[] columns = {ORIGIN, DEST, DEPART_DATE, PRICE};
+
+        // Define the selection criteria
+        String selection = FLIGHT_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {flightID};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the details from the cursor
+            String origin = cursor.getString(cursor.getColumnIndex(ORIGIN));
+            String dest = cursor.getString(cursor.getColumnIndex(DEST));
+            String departDate = cursor.getString(cursor.getColumnIndex(DEPART_DATE));
+            int price = cursor.getInt(cursor.getColumnIndex(PRICE));
+
+            // Create a FlightDetails object
+            myBookingsFlightDetails = new MyBookingsFlightDetails(origin, dest, departDate, price);
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return myBookingsFlightDetails;
     }
 
 

@@ -1,7 +1,5 @@
 package com.example.indisky;
 
-import static android.content.Intent.getIntent;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -35,7 +33,7 @@ public class BookFragment extends Fragment {
 
     CalendarView calendarView, calendarView2;
 
-    Button bookButton;
+    Button searchFlightButton;
 
     String date, dateCheck;
 
@@ -73,7 +71,7 @@ public class BookFragment extends Fragment {
         calendarView=view.findViewById(R.id.calendarView);
         calendarView2=view.findViewById(R.id.calendarView2);
         textView43=view.findViewById(R.id.textView43);
-        bookButton=view.findViewById(R.id.bookButton);
+        searchFlightButton=view.findViewById(R.id.searchFlightButton);
 
         calendarView.setVisibility(View.INVISIBLE);
         calendarView2.setVisibility(View.INVISIBLE);
@@ -118,8 +116,17 @@ public class BookFragment extends Fragment {
             public void onClick(View view) {
                 String from=fromEditText.getText().toString();
                 String to=toEditText.getText().toString();
-                fromEditText.setText(to);
-                toEditText.setText(from);
+
+                String temp = from;
+                from = to;
+                to = temp;
+
+                tempFlightDB dbHelper = new tempFlightDB(getContext()); // assuming this code is in a Fragment or Activity
+                dbHelper.addOrigin(from);
+                dbHelper.addDest(to);
+
+                fromEditText.setText(from);
+                toEditText.setText(to);
                 setDetails();
             }
         });
@@ -213,7 +220,7 @@ public class BookFragment extends Fragment {
             }
         });
 
-        bookButton.setOnClickListener(new View.OnClickListener() {
+        searchFlightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(setDetails()==1) {
@@ -281,14 +288,18 @@ public class BookFragment extends Fragment {
     {
         calendarView=view.findViewById(R.id.calendarView);
         if(!calendarTextView.getText().equals("Date")) {
+            tempFlightDB tmpFlightDB = new tempFlightDB(getActivity());
+            firstOrigin = tmpFlightDB.getFirstOrigin();
+            firstDest = tmpFlightDB.getFirstDest();
             dateCheck = Integer.toString(toDay)+"/0"+Integer.toString(toMonth)+"/2024";
 
             FlightDB flightDB = new FlightDB(getActivity());
 
             int price = flightDB.getPriceByOriginAndDestAndDate(firstOrigin, firstDest, dateCheck);
+            int seat = flightDB.getSeatByOriginAndDestAndDate(firstOrigin, firstDest, dateCheck);
 
 
-            if (price == -1)
+            if (price == -1||seat==0)
                 return 0;
             else
                 return 1;

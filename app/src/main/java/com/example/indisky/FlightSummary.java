@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.Toast;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class FlightSummary extends AppCompatActivity {
 
@@ -45,6 +47,7 @@ public class FlightSummary extends AppCompatActivity {
         FlightDB flightDB = new FlightDB(FlightSummary.this);
         BookingDB bookingDB = new BookingDB(FlightSummary.this);
         PassengerDB passengerDB = new PassengerDB(FlightSummary.this);
+        PaymentDB paymentDB = new PaymentDB(FlightSummary.this);
 
         String firstOrigin = tmpFlightDB.getFirstOrigin();
         String firstDest = tmpFlightDB.getFirstDest();
@@ -73,9 +76,18 @@ public class FlightSummary extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        bookingDB.addNewBooking(user_id, flightID, dateCheck, price);
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH) + 1;
+                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                        String formattedMonth = String.format(Locale.US, "%02d", month);
+                        String currentDate = Integer.toString(day)+"/"+formattedMonth+"/"+Integer.toString(year);
+                        bookingDB.addNewBooking(user_id, flightID, currentDate, price);
+
                         int bookingID = bookingDB.getLastInsertedBookingID();
                         passengerDB.addNewPassenger(bookingID, name, age, gender);
+                        paymentDB.addNewPayment(bookingID, currentDate, price);
                         flightDB.reduceSeatAvailability(firstOrigin, firstDest, dateCheck, seats);
                         Toast.makeText(FlightSummary.this, "Booking Made", Toast.LENGTH_SHORT).show();
                         Intent intent1 = new Intent(FlightSummary.this, MainActivity.class);

@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Admin extends AppCompatActivity {
 
-    Button addNewFlightButton;
+    Button addNewFlightButton, managerUsersButton;
     private UserDB userDB;
     private FlightDB flightDB;
     private TableLayout tableLayoutUsers, tableLayoutSession, tableLayoutFlight;
@@ -29,11 +29,20 @@ public class Admin extends AppCompatActivity {
         tableLayoutSession = findViewById(R.id.tableLayoutSession);
         tableLayoutFlight = findViewById(R.id.tableLayoutFlight);
         addNewFlightButton=findViewById(R.id.addNewFlightButton);
+        managerUsersButton=findViewById(R.id.manageUsersButton);
 
         addNewFlightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(Admin.this, NewFlight.class);
+                startActivity(intent);
+            }
+        });
+
+        managerUsersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(Admin.this, ManageUsers.class);
                 startActivity(intent);
             }
         });

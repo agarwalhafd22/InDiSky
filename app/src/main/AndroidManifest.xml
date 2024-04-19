@@ -13,9 +13,19 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.InDiSky"
         tools:targetApi="31">
+        <activity
+            android:name=".UpdateProfile"
+            android:exported="false" />
+        <activity
+            android:name=".ManageUsers"
+            android:exported="false" />
+        <activity
+            android:name=".MyBookingsIndividualDetails"
+            android:exported="false" />
         <activity
             android:name=".SearchFlight"
             android:exported="false" />

@@ -74,18 +74,12 @@ public class ChooseCity extends AppCompatActivity {
             });
 
             SQLiteDatabase db = flightDB.getReadableDatabase();
-            Cursor cursor = db.query(
-                    "Flight",
-                    new String[]{"Origin"},
-                    null,
-                    null,
-                    null,
-                    null,
+            Cursor cursor = db.rawQuery(
+                    "SELECT DISTINCT Origin FROM Flight",
                     null
             );
 
             if (cursor != null && cursor.moveToFirst()) {
-
                 int i = 0;
                 do {
                     int c = cursor.getColumnIndex("Origin");
@@ -102,21 +96,13 @@ public class ChooseCity extends AppCompatActivity {
                 }
             }
 
+
+
             int count = 0;
 
             for (String str : originValues) {
                 if (str != null && !str.isEmpty()) {
                     count++;
-                }
-            }
-
-            for (int i = 0; i < count; i++) {
-                for (int j = i + 1; j < count; j++) {
-                    if (originValues[i].equals(originValues[j])) {
-                        for(int k=j;k<count;k++)
-                            originValues[k] = originValues[k + 1];
-                        count--;
-                    }
                 }
             }
 
@@ -130,6 +116,8 @@ public class ChooseCity extends AppCompatActivity {
         }
 
         else {
+
+            String tempOrigin = tmpFlightDB.getFirstOrigin();
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -146,18 +134,12 @@ public class ChooseCity extends AppCompatActivity {
             });
 
             SQLiteDatabase db = flightDB.getReadableDatabase();
-            Cursor cursor = db.query(
-                    "Flight",
-                    new String[]{"Dest"},
-                    null,
-                    null,
-                    null,
-                    null,
+            Cursor cursor = db.rawQuery(
+                    "SELECT DISTINCT Dest FROM Flight",
                     null
             );
 
             if (cursor != null && cursor.moveToFirst()) {
-
                 int i = 0;
                 do {
                     int c = cursor.getColumnIndex("Dest");
@@ -182,17 +164,6 @@ public class ChooseCity extends AppCompatActivity {
                 }
             }
 
-
-
-            for (int i = 0; i < count; i++) {
-                for (int j = i + 1; j < count; j++) {
-                    if (destValues[i].equals(destValues[j])) {
-                        for(int k=j;k<count;k++)
-                            destValues[k] = destValues[k + 1];
-                        count--;
-                    }
-                }
-            }
 
             String[] mainList = new String[count];
             for(int i=0;i<count;i++){

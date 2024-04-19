@@ -2,14 +2,17 @@ package com.example.indisky;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.List;
 
 public class PassengerDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 9;
+    private static final int DB_VERSION = 11;
     protected static final String TABLE_NAME = "Passenger";
     protected static final String PASSENGER_ID = "Passenger_ID";
     protected static final String BOOKING_ID = "Booking_ID";
@@ -42,6 +45,53 @@ public class PassengerDB extends SQLiteOpenHelper {
         values.put(GENDER, gender);
 
         db.insert(TABLE_NAME, null, values);
+
+        db.close();
+    }
+
+    public String getNameByBookingID(int bookingID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String name = null;
+
+        // Define the columns you want to retrieve
+        String[] columns = {NAME};
+
+        // Define the selection criteria
+        String selection = BOOKING_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {String.valueOf(bookingID)};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the name from the cursor
+            name = cursor.getString(cursor.getColumnIndex(NAME));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return name;
+    }
+
+    public void deletePassengerByBookingIDs(List<Integer> bookingIDs) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Iterate through the list of booking IDs
+        for (int bookingID : bookingIDs) {
+            // Define the where clause
+            String selection = BOOKING_ID + " = ?";
+
+            // Specify the selection arguments
+            String[] selectionArgs = {String.valueOf(bookingID)};
+
+            // Delete the row(s) for the current booking ID
+            db.delete(TABLE_NAME, selection, selectionArgs);
+        }
 
         db.close();
     }

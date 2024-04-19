@@ -32,7 +32,7 @@ public class SearchFlightViewHolder extends RecyclerView.ViewHolder implements V
         originDateTextView.setText(data.getOriginDate());
         destDateTextView.setText(data.getDestDate());
         flightIDTextView.setText(data.getFlightID());
-        priceSearchFlightTextView.setText(String.valueOf(data.getPrice()));
+        priceSearchFlightTextView.setText("₹"+String.valueOf(data.getPrice()));
         flightID = data.getFlightID();
         dateCheck = data.getOriginDate();
     }

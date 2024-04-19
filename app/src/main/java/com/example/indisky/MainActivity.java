@@ -44,10 +44,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     BookFragment bookFragment;
 
+    MyBookingsFragment myBookingsFragment;
+
     HomeFragment homeFragment;
+
+    CheckInFragment checkInFragment;
 
     int bookFragmentLoaded=0;
     int homeFragmentLoaded=0;
+    int myBookingsFragmentLoaded=0;
+
+    int checkInFragmentLoaded=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         bookFragment=new BookFragment();
         homeFragment=new HomeFragment();
+        myBookingsFragment = new MyBookingsFragment();
+        checkInFragment = new CheckInFragment();
 
 
         String userEmail = userDB.getLoggedInUserEmail();
@@ -110,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 bookFragmentLoaded=0;
+                myBookingsFragmentLoaded=0;
+                checkInFragmentLoaded=0;
                 navigationView.getMenu().findItem(R.id.nav_book_flight).setChecked(false);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 bottomNavigationView.getMenu().findItem(R.id.home_bottom_nav).setChecked(true);
@@ -142,8 +153,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
             menuItem.setChecked(false);
         }
+        else if(menuItem.getItemId()==R.id.update_contact_details) {
+            Intent intent = new Intent(MainActivity.this, UpdateProfile.class);
+            startActivity(intent);
+        }
         else if(menuItem.getItemId()==R.id.nav_book_flight)
         {
+            homeFragmentLoaded=0;
+            myBookingsFragmentLoaded=0;
+            checkInFragmentLoaded=0;
             if(bookFragmentLoaded==0) {
                 replaceFragment(bookFragment);
                 bookFragmentLoaded=1;
@@ -155,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if(menuItem.getItemId()==R.id.book_flight_bottom_nav)
         {
             homeFragmentLoaded=0;
+            myBookingsFragmentLoaded=0;
+            checkInFragmentLoaded=0;
             if(bookFragmentLoaded==0) {
                 replaceFragment(bookFragment);
                 bookFragmentLoaded=1;
@@ -163,15 +183,70 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.getMenu().findItem(R.id.nav_book_flight).setChecked(true);
             menuItem.setChecked(false);
         }
+        else if(menuItem.getItemId()==R.id.my_bookings_nav)
+        {
+            homeFragmentLoaded=0;
+            bookFragmentLoaded=0;
+            checkInFragmentLoaded=0;
+            if(myBookingsFragmentLoaded==0) {
+                replaceFragment(myBookingsFragment);
+                myBookingsFragmentLoaded=1;
+            }
+            drawerLayout.closeDrawer(GravityCompat.START);
+            bottomNavigationView.getMenu().findItem(R.id.my_bookings_bottom_nav).setChecked(true);
+            menuItem.setChecked(false);
+        }
+        else if(menuItem.getItemId()==R.id.my_bookings_bottom_nav)
+        {
+            homeFragmentLoaded=0;
+            bookFragmentLoaded=0;
+            checkInFragmentLoaded=0;
+            if(myBookingsFragmentLoaded==0) {
+                replaceFragment(myBookingsFragment);
+                myBookingsFragmentLoaded=1;
+            }
+            drawerLayout.closeDrawer(GravityCompat.START);
+            navigationView.getMenu().findItem(R.id.my_bookings_nav).setChecked(true);
+            menuItem.setChecked(false);
+        }
         else if(menuItem.getItemId()==R.id.home_bottom_nav)
         {
             bookFragmentLoaded=0;
+            myBookingsFragmentLoaded=0;
+            checkInFragmentLoaded=0;
             if(homeFragmentLoaded==0)
             {
                 replaceFragment(homeFragment);
                 homeFragmentLoaded=1;
             }
-            navigationView.getMenu().findItem(R.id.nav_book_flight).setChecked(false);
+            navigationView.getMenu().findItem(R.id.nav_book_flight).setChecked(true);
+            menuItem.setChecked(false);
+        }
+        else if(menuItem.getItemId()==R.id.nav_check_in)
+        {
+            bookFragmentLoaded=0;
+            myBookingsFragmentLoaded=0;
+            homeFragmentLoaded=0;
+            if(checkInFragmentLoaded==0) {
+                replaceFragment(checkInFragment);
+                checkInFragmentLoaded=1;
+            }
+            drawerLayout.closeDrawer(GravityCompat.START);
+            bottomNavigationView.getMenu().findItem(R.id.check_in_bottom_nav).setChecked(true);
+            menuItem.setChecked(false);
+        }
+        else if(menuItem.getItemId()==R.id.check_in_bottom_nav)
+        {
+            bookFragmentLoaded=0;
+            myBookingsFragmentLoaded=0;
+            homeFragmentLoaded=0;
+            if(checkInFragmentLoaded==0)
+            {
+                replaceFragment(checkInFragment);
+                checkInFragmentLoaded=1;
+            }
+            navigationView.getMenu().findItem(R.id.nav_check_in).setChecked(true);
+            menuItem.setChecked(false);
         }
         else if(menuItem.getItemId()==R.id.admin_nav)
         {

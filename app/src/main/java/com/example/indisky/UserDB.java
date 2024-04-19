@@ -10,7 +10,7 @@ public class UserDB extends SQLiteOpenHelper {
 
     private static final String DB_NAME="indisky";
 
-    private static final int DB_VERSION=9;
+    private static final int DB_VERSION=11;
 
     protected static final String USERS_TABLE="Users";
 
@@ -202,6 +202,29 @@ public class UserDB extends SQLiteOpenHelper {
 
         return userID;
     }
+
+    public int deleteUser(int userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Define the where clause
+        String selection = ID_COL + " = ?";
+
+        // Specify the selection arguments
+        String[] selectionArgs = {String.valueOf(userId)};
+
+        // Delete the row and get the number of affected rows
+        int rowsDeleted = db.delete(USERS_TABLE, selection, selectionArgs);
+
+        db.close();
+
+        // Return 1 if deletion is successful, otherwise return 0
+        if (rowsDeleted > 0) {
+            return 1; // Deletion successful
+        } else {
+            return 0; // UserID given is invalid or does not exist
+        }
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
