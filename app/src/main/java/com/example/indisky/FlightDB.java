@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FlightDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
@@ -84,8 +87,37 @@ public class FlightDB extends SQLiteOpenHelper {
         return price;
     }
 
+    public int getPriceByFlightID(String flightID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int price = -1; // Default value if no matching record is found
 
-    public int getSeatsByOriginAndDestAndDate(String origin, String dest, String date) {
+        // Define the columns you want to retrieve
+        String[] columns = {PRICE};
+
+        // Define the selection criteria
+        String selection = FLIGHT_ID+ " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {flightID};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the price from the cursor
+            price = cursor.getInt(cursor.getColumnIndex(PRICE));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return price;
+    }
+
+
+    public int getSeatsByFlightID(String flightID) {
         SQLiteDatabase db = this.getReadableDatabase();
         int seats = -1; // Default value if no matching record is found
 
@@ -93,10 +125,10 @@ public class FlightDB extends SQLiteOpenHelper {
         String[] columns = {SEAT_AVAIL};
 
         // Define the selection criteria
-        String selection = ORIGIN + " = ? AND " + DEST + " = ? AND " + DEPART_DATE + " = ?";
+        String selection = FLIGHT_ID + " = ?";
 
         // Define the selection arguments
-        String[] selectionArgs = {origin, dest, date};
+        String[] selectionArgs = {flightID};
 
         // Execute the query
         Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
@@ -167,6 +199,34 @@ public class FlightDB extends SQLiteOpenHelper {
 
         // Close the database
         db.close();
+    }
+
+    public List<SearchFlightItems> getFlightsByOriginDestDate(String origin, String dest, String date) {
+        List<SearchFlightItems> flights = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columns = {FLIGHT_ID, DEPART_DATE, ARRIVAL_DATE, PRICE};
+        String selection = ORIGIN + " = ? AND " + DEST + " = ? AND " + DEPART_DATE + " = ?";
+        String[] selectionArgs = {origin, dest, date};
+
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String flightID = cursor.getString(cursor.getColumnIndex(FLIGHT_ID));
+                String flightDepartDate = cursor.getString(cursor.getColumnIndex(DEPART_DATE));
+                String flightArrivalDate = cursor.getString(cursor.getColumnIndex(ARRIVAL_DATE));
+                int flightPrice = cursor.getInt(cursor.getColumnIndex(PRICE));
+
+                SearchFlightItems flight = new SearchFlightItems(flightDepartDate, flightArrivalDate, flightID,  flightPrice);
+                flights.add(flight);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return flights;
     }
 
 

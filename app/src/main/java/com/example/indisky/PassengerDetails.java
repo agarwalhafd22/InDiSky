@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+import java.text.DateFormatSymbols;
 
 public class PassengerDetails extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class PassengerDetails extends AppCompatActivity {
 
     Button submitButton;
 
-    String name, gender, date, dateCheck;
+    String name, gender, date, dateCheck, flightID;
     int age;
 
 
@@ -37,8 +38,11 @@ public class PassengerDetails extends AppCompatActivity {
         femaleRadioButton=findViewById(R.id.femaleRadioButton);
         submitButton=findViewById(R.id.submitButton);
 
-        date = getIntent().getStringExtra("date");
+
+        flightID = getIntent().getStringExtra("flightID");
         dateCheck=getIntent().getStringExtra("dateCheck");
+
+        date = formatDate(dateCheck);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -71,10 +75,30 @@ public class PassengerDetails extends AppCompatActivity {
                     intent.putExtra("age", age);
                     intent.putExtra("date", date);
                     intent.putExtra("dateCheck", dateCheck);
+                    intent.putExtra("flightID", flightID);
                     startActivity(intent);
                 }
             }
         });
 
+    }
+
+    public static String formatDate(String dateString) {
+        // Split the date string by "/"
+        String[] parts = dateString.split("/");
+
+        if (parts.length != 3) {
+            return "Invalid date format";
+        }
+
+        // Extract day and month from the date string
+        int day = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+
+        // Get the month name from its numeric representation
+        String monthName = new DateFormatSymbols().getMonths()[month - 1];
+
+        // Format the date as "dd month"
+        return day + " " + monthName;
     }
 }

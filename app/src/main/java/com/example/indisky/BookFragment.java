@@ -31,7 +31,7 @@ public class BookFragment extends Fragment {
 
     RadioButton oneWayRadioButton, roundTripRadioButton, multiCityRadioButton;
 
-    TextView calendarTextView, calendarTextView2, textView43, priceTextView, seatsTextView;
+    TextView calendarTextView, calendarTextView2, textView43;
 
     CalendarView calendarView, calendarView2;
 
@@ -73,8 +73,6 @@ public class BookFragment extends Fragment {
         calendarView=view.findViewById(R.id.calendarView);
         calendarView2=view.findViewById(R.id.calendarView2);
         textView43=view.findViewById(R.id.textView43);
-        priceTextView=view.findViewById(R.id.priceTextView);
-        seatsTextView=view.findViewById(R.id.seatsTextView);
         bookButton=view.findViewById(R.id.bookButton);
 
         calendarView.setVisibility(View.INVISIBLE);
@@ -218,10 +216,16 @@ public class BookFragment extends Fragment {
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), PassengerDetails.class);
-                intent.putExtra("date", date);
-                intent.putExtra("dateCheck", dateCheck);
-                startActivity(intent);
+                if(setDetails()==1) {
+                    Intent intent = new Intent(getActivity(), SearchFlight.class);
+                    intent.putExtra("date", date);
+                    intent.putExtra("dateCheck", dateCheck);
+                    startActivity(intent);
+                }
+                else if(setDetails()==0)
+                    Toast.makeText(getActivity(), "No Flights Available!", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getActivity(), "Select Date", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -273,7 +277,7 @@ public class BookFragment extends Fragment {
         return "Jan";
     }
 
-    private void setDetails()
+    private int setDetails()
     {
         calendarView=view.findViewById(R.id.calendarView);
         if(!calendarTextView.getText().equals("Date")) {
@@ -282,18 +286,13 @@ public class BookFragment extends Fragment {
             FlightDB flightDB = new FlightDB(getActivity());
 
             int price = flightDB.getPriceByOriginAndDestAndDate(firstOrigin, firstDest, dateCheck);
-            int seats = flightDB.getSeatsByOriginAndDestAndDate(firstOrigin, firstDest, dateCheck);
 
 
             if (price == -1)
-                priceTextView.setText("No Flights");
+                return 0;
             else
-                priceTextView.setText(Integer.toString(price));
-
-            if (seats == -1)
-                seatsTextView.setText("No Flights");
-            else
-                seatsTextView.setText(Integer.toString(seats));
+                return 1;
         }
+        return -1;
     }
 }

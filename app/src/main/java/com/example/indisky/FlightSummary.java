@@ -37,6 +37,7 @@ public class FlightSummary extends AppCompatActivity {
         int age = intent.getIntExtra("age", 18);
         String date = intent.getStringExtra("date");
         String dateCheck = intent.getStringExtra("dateCheck");
+        String flightID = intent.getStringExtra("flightID");
 
 
         UserDB userDB = new UserDB(FlightSummary.this);
@@ -47,10 +48,9 @@ public class FlightSummary extends AppCompatActivity {
 
         String firstOrigin = tmpFlightDB.getFirstOrigin();
         String firstDest = tmpFlightDB.getFirstDest();
-        int price = flightDB.getPriceByOriginAndDestAndDate(firstOrigin, firstDest, dateCheck);
-        int seats = flightDB.getSeatsByOriginAndDestAndDate(firstOrigin, firstDest, dateCheck);
+        int price = flightDB.getPriceByFlightID(flightID);
+        int seats = flightDB.getSeatsByFlightID(flightID);
         int user_id = userDB.getSessionUserID();
-        String flightID = flightDB.getFlightIDByOriginAndDestAndDate(firstOrigin, firstDest, dateCheck);
         originTextViewSummary.setText(firstOrigin);
         destTextViewSummary.setText(firstDest);
         nameTextViewSummary.setText(name);

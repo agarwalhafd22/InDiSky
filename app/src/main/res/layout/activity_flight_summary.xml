@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".FlightSummary">
 
     <include
@@ -52,6 +53,7 @@
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        app:cardBackgroundColor="#bddff8"
         app:cardCornerRadius="10dp"
         app:cardElevation="20dp"
         app:contentPadding="10dp"
@@ -80,8 +82,8 @@
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="Name"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textAlignment="textStart"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -90,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -111,8 +113,8 @@
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="Age"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textAlignment="textStart"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -121,7 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -141,8 +143,8 @@
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="Gender"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textAlignment="textStart"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -151,7 +153,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -172,8 +174,8 @@
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="From"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textAlignment="textStart"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -182,7 +184,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -202,8 +204,8 @@
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="To"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textAlignment="textStart"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -212,7 +214,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -233,8 +235,8 @@
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="Price"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textAlignment="textStart"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -243,7 +245,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -263,8 +265,8 @@
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="Date"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textAlignment="textStart"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -273,7 +275,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="#00002f"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
