@@ -54,7 +54,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView60"
         app:layout_constraintVertical_bias="0.092" />
@@ -69,10 +69,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.162"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView62"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.096" />
 
     <EditText
         android:id="@+id/nameEditText"
@@ -80,35 +80,36 @@
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
         android:ems="10"
+        android:inputType="textCapWords"
         android:padding="7dp"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:inputType="textCapWords"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.646"
         app:layout_constraintStart_toEndOf="@+id/textView60"
         app:layout_constraintTop_toBottomOf="@+id/textView59"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintVertical_bias="0.061" />
 
     <EditText
         android:id="@+id/ageEditText"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/edittextcustom"
         android:ems="10"
         android:inputType="number"
-        android:textColor="@color/black"
         android:padding="7dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/textView62"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText"
-        app:layout_constraintVertical_bias="0.051" />
+        app:layout_constraintVertical_bias="0.074" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -142,16 +143,21 @@
 
     <Button
         android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/searchflightbutton"
         android:text="Submit"
         android:textAllCaps="false"
-        android:background="@drawable/round_button"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView63"
         app:layout_constraintVertical_bias="0.135" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
