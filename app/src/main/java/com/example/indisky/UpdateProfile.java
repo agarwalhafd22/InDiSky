@@ -91,6 +91,7 @@ public class UpdateProfile extends AppCompatActivity {
                 if(newName.isEmpty()) {
                     hideKeyboard();
                     Toast.makeText(UpdateProfile.this, "Name not updated", Toast.LENGTH_SHORT).show();
+                    newNameEditText.setText(null);
                     updateNameCardView.setVisibility(View.INVISIBLE);
                     cardView2.setVisibility(View.VISIBLE);
                     cardView3.setVisibility(View.VISIBLE);
@@ -102,6 +103,7 @@ public class UpdateProfile extends AppCompatActivity {
                 else
                 {
                     hideKeyboard();
+                    newNameEditText.setText(null);
                     userDB.editUserName(userID, newName);
                     String userName = userDB.getLoggedInUserName(userEmail);
                     nameUpdateProfile.setText(userName);
@@ -140,7 +142,14 @@ public class UpdateProfile extends AppCompatActivity {
                 String newPassword = newPasswordEditText.getText().toString();
                 if(oldPassword.isEmpty()||newPassword.isEmpty()) {
                     hideKeyboard();
-                    Toast.makeText(UpdateProfile.this, "Enter all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateProfile.this, "Password not updated", Toast.LENGTH_SHORT).show();
+                    cardView2.setVisibility(View.VISIBLE);
+                    cardView3.setVisibility(View.VISIBLE);
+                    backButton.setVisibility(View.VISIBLE);
+                    userImageView.setVisibility(View.VISIBLE);
+                    textView72.setVisibility(View.VISIBLE);
+                    updatePasswordButton.setVisibility(View.VISIBLE);
+                    updatePasswordCardView.setVisibility(View.INVISIBLE);
                 }
                 else if(!oldPassword.equals(oldPasswordFromDataBase)) {
                     hideKeyboard();
