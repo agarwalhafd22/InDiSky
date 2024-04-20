@@ -225,6 +225,97 @@ public class UserDB extends SQLiteOpenHelper {
         }
     }
 
+    public void editUserName(int userId, String newName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Create a ContentValues object to hold the new name
+        ContentValues values = new ContentValues();
+        values.put(NAME, newName);
+
+        // Define the where clause
+        String selection = ID_COL + " = ?";
+
+        // Specify the selection arguments
+        String[] selectionArgs = {String.valueOf(userId)};
+
+        // Update the row and get the number of affected rows
+        int rowsUpdated = db.update(USERS_TABLE, values, selection, selectionArgs);
+
+        db.close();
+
+        // Check if the update was successful
+        if (rowsUpdated > 0) {
+            System.out.println("User name updated successfully.");
+        } else {
+            System.out.println("Failed to update user name. User ID may be invalid.");
+        }
+    }
+
+    public String getPasswordByUserID(int userID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String password = null;
+
+        try {
+            // Define the query to retrieve the password based on the userID
+            String query = "SELECT " + PASSWORD + " FROM " + USERS_TABLE + " WHERE " + ID_COL + " = ?";
+
+            // Specify the selection arguments
+            String[] selectionArgs = {String.valueOf(userID)};
+
+            // Execute the query
+            Cursor cursor = db.rawQuery(query, selectionArgs);
+
+            // Check if the cursor has any rows
+            if (cursor.moveToFirst()) {
+                // Retrieve the password from the cursor
+                password = cursor.getString(cursor.getColumnIndex(PASSWORD));
+            }
+
+            cursor.close();
+        } catch (Exception e) {
+            // Handle any exceptions
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
+
+        return password;
+    }
+
+    public void editPasswordByUserID(int userID, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+            // Create a ContentValues object to hold the new password
+            ContentValues values = new ContentValues();
+            values.put(PASSWORD, newPassword);
+
+            // Define the where clause
+            String selection = ID_COL + " = ?";
+
+            // Specify the selection arguments
+            String[] selectionArgs = {String.valueOf(userID)};
+
+            // Update the row with the new password
+            int rowsUpdated = db.update(USERS_TABLE, values, selection, selectionArgs);
+
+            // Check if the update was successful
+            if (rowsUpdated > 0) {
+                System.out.println("Password updated successfully.");
+            } else {
+                System.out.println("Failed to update password. User ID may be invalid.");
+            }
+        } catch (Exception e) {
+            // Handle any exceptions
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
+    }
+
+
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
