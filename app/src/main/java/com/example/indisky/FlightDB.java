@@ -230,6 +230,32 @@ public class FlightDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void reduceSeatAvailabilityByFlightID(String flightID, int currentSeats) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        // Reduce the available seats by one
+        int updatedSeats = currentSeats - 1;
+        if (updatedSeats < 0) {
+            // Ensure that the number of available seats does not go below zero
+            updatedSeats = 0;
+        }
+
+        // Prepare content values with the updated seat availability
+        ContentValues values = new ContentValues();
+        values.put(SEAT_AVAIL, updatedSeats);
+
+        // Define the update criteria
+        String selection = FLIGHT_ID + " = ?";
+        String[] selectionArgs = {flightID};
+
+        // Execute the update query
+        db.update(TABLE_NAME, values, selection, selectionArgs);
+
+        // Close the database
+        db.close();
+    }
+
     public List<SearchFlightItems> getFlightsByOriginDestDate(String origin, String dest, String date) {
         List<SearchFlightItems> flights = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

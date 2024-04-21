@@ -88,7 +88,8 @@ public class FlightSummary extends AppCompatActivity {
                         int bookingID = bookingDB.getLastInsertedBookingID();
                         passengerDB.addNewPassenger(bookingID, name, age, gender);
                         paymentDB.addNewPayment(bookingID, currentDate, price);
-                        flightDB.reduceSeatAvailability(firstOrigin, firstDest, dateCheck, seats);
+                        flightDB.reduceSeatAvailabilityByFlightID(flightID,
+                                seats);
                         Toast.makeText(FlightSummary.this, "Booking Made", Toast.LENGTH_SHORT).show();
                         Intent intent1 = new Intent(FlightSummary.this, MainActivity.class);
                         intent.putExtra("fragmentIndex", 1);
