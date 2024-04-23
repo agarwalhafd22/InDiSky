@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IndividualBookingDetails">
+
+    <include
+        android:id="@+id/justToolbar"
+        layout="@layout/justtoolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="50dp"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/justToolbar"
+        app:layout_constraintVertical_bias="0.036">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView111"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="From"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textView113"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView112"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="To"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/originTextViewIndividual"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView86"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="-------------"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/destTextViewIndividual"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#bddff8"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="20dp"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView4"
+        app:layout_constraintVertical_bias="0.05">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView140"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Booking Details"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView169"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView104"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Name"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/nameTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView103"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView107"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Age"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ageTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView106"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Gender"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/genderTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView150"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textV"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Passenger ID"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/passengerIDTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView1500"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView84"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Booking ID"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/bookingIDTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView95"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView96"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Flight ID"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/flightIDTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView99"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView101"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="    Booking Date"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/bookingDateTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#bddff8"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="20dp"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView5"
+        app:layout_constraintVertical_bias="0.175">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView114"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Payment Details"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView116"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView117"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Payment ID"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/paymentIDTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView125"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView189"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Method"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/methodTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Online"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView126"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView190"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:text="Amount"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/amountTextViewIndividual"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

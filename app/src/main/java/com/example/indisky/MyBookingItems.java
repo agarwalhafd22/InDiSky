@@ -1,15 +1,17 @@
 package com.example.indisky;
 
 public class MyBookingItems {
-    String origin, dest, date, name;
-    int price;
+    String origin, dest, date, name, flightID;
+    int price, bookingID;
 
-    public MyBookingItems(String origin, String dest, String date, int price, String name) {
+    public MyBookingItems(String origin, String dest, String date, int price, int bookingID, String name, String flightID) {
         this.origin = origin;
         this.dest = dest;
         this.date = date;
+        this.bookingID=bookingID;
         this.name = name;
         this.price = price;
+        this.flightID = flightID;
     }
 
     public String getOrigin() {
@@ -36,6 +38,14 @@ public class MyBookingItems {
         this.date = date;
     }
 
+    public int getBookingID() {
+        return bookingID;
+    }
+
+    public void setBookingID(int bookingID) {
+        this.bookingID = bookingID;
+    }
+
     public String getName() {
         return name;
     }
@@ -50,5 +60,13 @@ public class MyBookingItems {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getFlightID() {
+        return flightID;
+    }
+
+    public void setFlightID(String flightID) {
+        this.flightID = flightID;
     }
 }

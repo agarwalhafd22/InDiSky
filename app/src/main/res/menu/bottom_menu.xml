@@ -12,15 +12,15 @@
             android:title="Book"
             android:checked="true"/>
 
-        <item
-            android:id="@+id/check_in_bottom_nav"
-            android:icon="@drawable/checkin"
-            android:title="Check-in" />
+<!--        <item-->
+<!--            android:id="@+id/check_in_bottom_nav"-->
+<!--            android:icon="@drawable/checkin"-->
+<!--            android:title="Check-in" />-->
 
-        <item
-            android:id="@+id/flight_status_bottom_nav"
-            android:icon="@drawable/flightstatusclock"
-            android:title="Flight Status"/>
+<!--        <item-->
+<!--            android:id="@+id/flight_status_bottom_nav"-->
+<!--            android:icon="@drawable/flightstatusclock"-->
+<!--            android:title="Flight Status"/>-->
 
         <item
             android:id="@+id/my_bookings_bottom_nav"

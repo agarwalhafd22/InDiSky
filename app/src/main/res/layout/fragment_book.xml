@@ -6,58 +6,60 @@
     android:layout_height="match_parent"
     android:backgroundTint="#740A0A">
 
-    <RadioGroup
-        android:id="@+id/chooseTripTypeRadioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:visibility="visible"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+<!--    <RadioGroup-->
+<!--        android:id="@+id/chooseTripTypeRadioGroup"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:visibility="visible"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0">-->
 
 
-        <RadioButton
-            android:id="@+id/oneWayRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:buttonTint="@color/black"
-            android:checked="true"
-            android:text="One Way"
-            android:textColor="@color/black"
-            android:textStyle="bold">
+<!--        <RadioButton-->
+<!--            android:id="@+id/oneWayRadioButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:buttonTint="@color/black"-->
+<!--            android:checked="true"-->
+<!--            android:text="One Way"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold">-->
 
-        </RadioButton>
+<!--        </RadioButton>-->
 
-        <RadioButton
-            android:id="@+id/roundTripRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:buttonTint="@color/black"
-            android:text="Round Trip"
-            android:textColor="@color/black"
-            android:textStyle="bold">
+<!--        <RadioButton-->
+<!--            android:id="@+id/roundTripRadioButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:buttonTint="@color/black"-->
+<!--            android:text="Round Trip"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold">-->
 
-        </RadioButton>
-
-
+<!--        </RadioButton>-->
 
 
 
-    </RadioGroup>
+
+
+<!--    </RadioGroup>-->
 
     <EditText
         android:id="@+id/fromEditText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittextcustom"
+        android:clickable="true"
         android:ems="10"
+        android:focusable="false"
         android:hint="From"
         android:inputType="textCapWords"
         android:paddingHorizontal="10dp"
@@ -65,14 +67,12 @@
         android:textColor="@color/black"
         android:textColorHint="#808080"
         android:textStyle="bold"
-        android:focusable="false"
-        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseTripTypeRadioGroup"
-        app:layout_constraintVertical_bias="0.027" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.094" />
 
     <EditText
         android:id="@+id/toEditText"
@@ -100,15 +100,14 @@
         android:id="@+id/reverseImageView"
         android:layout_width="40dp"
         android:layout_height="39dp"
-        android:layout_marginTop="20dp"
         android:rotation="-90"
         android:src="@drawable/reversearraows2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/fromEditText"
-        app:layout_constraintTop_toBottomOf="@+id/chooseTripTypeRadioGroup"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125" />
 
     <TextView
         android:id="@+id/calendarTextView"
@@ -229,7 +228,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintTop_toBottomOf="@+id/toEditText"
+        app:layout_constraintVertical_bias="0.455" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

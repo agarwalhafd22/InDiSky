@@ -76,9 +76,9 @@ public class BookFragment extends Fragment {
         calendarView.setVisibility(View.INVISIBLE);
         calendarView2.setVisibility(View.INVISIBLE);
 
-        chooseTripTypeRadioGroup=view.findViewById(R.id.chooseTripTypeRadioGroup);
-        oneWayRadioButton=view.findViewById(R.id.oneWayRadioButton);
-        roundTripRadioButton=view.findViewById(R.id.roundTripRadioButton);
+        //chooseTripTypeRadioGroup=view.findViewById(R.id.chooseTripTypeRadioGroup);
+        //oneWayRadioButton=view.findViewById(R.id.oneWayRadioButton);
+        //roundTripRadioButton=view.findViewById(R.id.roundTripRadioButton);
 
         tempFlightDB tmpFlightDB = new tempFlightDB(getActivity());
         firstOrigin = tmpFlightDB.getFirstOrigin();
@@ -93,23 +93,23 @@ public class BookFragment extends Fragment {
 
 
 
-        chooseTripTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {              // to choose if one-way or round trip
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if(i==R.id.oneWayRadioButton)
-                {
-                    dateImageView2.setVisibility(View.INVISIBLE);
-                    calendarTextView2.setVisibility(View.INVISIBLE);
-                    textView43.setVisibility(View.INVISIBLE);
-                }
-                else if(i==R.id.roundTripRadioButton)
-                {
-                    dateImageView2.setVisibility(View.VISIBLE);
-                    calendarTextView2.setVisibility(View.VISIBLE);
-                    textView43.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+//        chooseTripTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {              // to choose if one-way or round trip
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                if(i==R.id.oneWayRadioButton)
+//                {
+//                    dateImageView2.setVisibility(View.INVISIBLE);
+//                    calendarTextView2.setVisibility(View.INVISIBLE);
+//                    textView43.setVisibility(View.INVISIBLE);
+//                }
+//                else if(i==R.id.roundTripRadioButton)
+//                {
+//                    dateImageView2.setVisibility(View.VISIBLE);
+//                    calendarTextView2.setVisibility(View.VISIBLE);
+//                    textView43.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
 
         reverseImageView.setOnClickListener(new View.OnClickListener() {               //switches origin and destination names
             @Override
@@ -180,11 +180,11 @@ public class BookFragment extends Fragment {
                 date = Integer.toString(day)+ " " + returnMonth(month);
                 calendarTextView.setText(date);
                 setDetails();
-                if(chooseTripTypeRadioGroup.getCheckedRadioButtonId()==R.id.roundTripRadioButton) {
-                    dateImageView2.setVisibility(View.VISIBLE);
-                    calendarTextView2.setVisibility(View.VISIBLE);
-                    textView43.setVisibility(View.VISIBLE);
-                }
+//                if(chooseTripTypeRadioGroup.getCheckedRadioButtonId()==R.id.roundTripRadioButton) {
+//                    dateImageView2.setVisibility(View.VISIBLE);
+//                    calendarTextView2.setVisibility(View.VISIBLE);
+//                    textView43.setVisibility(View.VISIBLE);
+//                }
             }
         });
 
@@ -194,11 +194,11 @@ public class BookFragment extends Fragment {
                 calendarView.setVisibility(View.INVISIBLE);
                 date = Integer.toString(day)+ " " + returnMonth(month);
                 calendarTextView2.setText(date);
-                if(chooseTripTypeRadioGroup.getCheckedRadioButtonId()==R.id.roundTripRadioButton) {
-                    dateImageView2.setVisibility(View.VISIBLE);
-                    calendarTextView2.setVisibility(View.VISIBLE);
-                    textView43.setVisibility(View.VISIBLE);
-                }
+//                if(chooseTripTypeRadioGroup.getCheckedRadioButtonId()==R.id.roundTripRadioButton) {
+//                    dateImageView2.setVisibility(View.VISIBLE);
+//                    calendarTextView2.setVisibility(View.VISIBLE);
+//                    textView43.setVisibility(View.VISIBLE);
+//                }
             }
         });
 

@@ -47,6 +47,7 @@ public class Admin extends AppCompatActivity {
             }
         });
 
+
         displayUsers();
         displaySession();
         displayFlight();
@@ -58,6 +59,7 @@ public class Admin extends AppCompatActivity {
         SQLiteDatabase db = flightDB.getReadableDatabase();
         String[] projection = {
                 FlightDB.FLIGHT_ID,
+                FlightDB.AIRPORT_ID,
                 FlightDB.ORIGIN,
                 FlightDB.DEST,
                 FlightDB.DEPART_DATE,
@@ -70,6 +72,7 @@ public class Admin extends AppCompatActivity {
 
         while(cursor.moveToNext()){
             String flightID = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.FLIGHT_ID));
+            String airportID = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.AIRPORT_ID));
             String to = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.ORIGIN));
             String from = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.DEST));
             String depart = cursor.getString(cursor.getColumnIndexOrThrow(FlightDB.DEPART_DATE));
@@ -83,6 +86,11 @@ public class Admin extends AppCompatActivity {
             flightTableIDTextView.setText(flightID);
             flightTableIDTextView.setPadding(8, 8, 8, 8);
             row.addView(flightTableIDTextView);
+
+            TextView flightTableAirportIDTextView = new TextView(this);
+            flightTableAirportIDTextView.setText(airportID);
+            flightTableAirportIDTextView.setPadding(8, 8, 8, 8);
+            row.addView(flightTableAirportIDTextView);
 
             TextView toTextView = new TextView(this);
             toTextView.setText(to);

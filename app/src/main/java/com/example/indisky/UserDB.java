@@ -10,7 +10,7 @@ public class UserDB extends SQLiteOpenHelper {
 
     private static final String DB_NAME="indisky";
 
-    private static final int DB_VERSION=11;
+    private static final int DB_VERSION=13;
 
     protected static final String USERS_TABLE="Users";
 

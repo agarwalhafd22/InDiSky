@@ -13,7 +13,7 @@ public class BookingDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 13;
     protected static final String TABLE_NAME = "Booking";
     protected static final String BOOKING_ID = "Booking_ID";
     protected static final String USER_ID = "User_ID";
@@ -107,6 +107,24 @@ public class BookingDB extends SQLiteOpenHelper {
         return flightID;
     }
 
+    public int getBookingIDbyFlightID(String flightID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int bookingID = 0;
+        Cursor cursor = db.query(TABLE_NAME, new String[]{BOOKING_ID},
+                FLIGHT_ID + "=?", new String[]{String.valueOf(flightID)},
+                null, null, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                bookingID = cursor.getInt(cursor.getColumnIndex(BOOKING_ID));
+            }
+            cursor.close();
+        }
+
+        db.close();
+        return bookingID;
+    }
+
     public List<Integer> deleteBookingByUserID(int userID) {
         List<Integer> deletedBookingIDs = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -137,6 +155,38 @@ public class BookingDB extends SQLiteOpenHelper {
         // Return the list of deleted booking IDs
         return deletedBookingIDs;
     }
+
+    public String getBookingDateByBookingID(int bookingID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String bookingDate = null;
+
+        // Define the columns you want to retrieve
+        String[] columns = {BOOKING_DATE};
+
+        // Define the selection criteria
+        String selection = BOOKING_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {String.valueOf(bookingID)};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the booking date from the cursor
+            bookingDate = cursor.getString(cursor.getColumnIndex(BOOKING_DATE));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return bookingDate;
+    }
+
+
+
 
 
 

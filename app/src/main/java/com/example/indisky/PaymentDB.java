@@ -13,7 +13,7 @@ public class PaymentDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 13;
     protected static final String TABLE_NAME = "Payment";
 
     protected static final String PAYMENT_ID = "Payment_ID";
@@ -67,6 +67,66 @@ public class PaymentDB extends SQLiteOpenHelper {
 
         db.close();
     }
+
+    public int getPaymentIDByBookingID(int bookingID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int paymentID = -1; // Default value if no matching record is found
+
+        // Define the columns you want to retrieve
+        String[] columns = {PAYMENT_ID};
+
+        // Define the selection criteria
+        String selection = BOOKING_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {String.valueOf(bookingID)};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the payment ID from the cursor
+            paymentID = cursor.getInt(cursor.getColumnIndex(PAYMENT_ID));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return paymentID;
+    }
+
+    public int getAmountByBookingID(int bookingID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int amount = -1; // Default value if no matching record is found
+
+        // Define the columns you want to retrieve
+        String[] columns = {AMOUNT};
+
+        // Define the selection criteria
+        String selection = BOOKING_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {String.valueOf(bookingID)};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the amount from the cursor
+            amount = cursor.getInt(cursor.getColumnIndex(AMOUNT));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return amount;
+    }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

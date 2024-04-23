@@ -13,9 +13,10 @@ public class FlightDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 13;
     protected static final String TABLE_NAME = "Flight";
     protected static final String FLIGHT_ID = "Flight_ID";
+    protected static final String AIRPORT_ID = "Airport_ID";
     protected static final String ORIGIN = "Origin";
     protected static final String DEST = "Dest";
     protected static final String DEPART_DATE = "Depart_Date";
@@ -31,6 +32,7 @@ public class FlightDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + FLIGHT_ID + " TEXT PRIMARY KEY, "
+                + AIRPORT_ID + " TEXT,"
                 + ORIGIN + " TEXT,"
                 + DEST + " TEXT,"
                 + DEPART_DATE + " TEXT,"
@@ -40,12 +42,13 @@ public class FlightDB extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public void addNewFlightDetail(String id, String origin, String dest, String depart, String arrive, int price, int seat) {
+    public void addNewFlightDetail(String id, String airportID, String origin, String dest, String depart, String arrive, int price, int seat) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(FLIGHT_ID, id);
+        values.put(AIRPORT_ID, airportID);
         values.put(ORIGIN, origin);
         values.put(DEST, dest);
         values.put(DEPART_DATE, depart);
@@ -200,7 +203,6 @@ public class FlightDB extends SQLiteOpenHelper {
         // Close the cursor and database
         cursor.close();
         db.close();
-
         return flightID;
     }
 
@@ -325,11 +327,74 @@ public class FlightDB extends SQLiteOpenHelper {
         return db.rawQuery("SELECT Origin FROM " + TABLE_NAME, null);
     }
 
+    public String getOriginByFlightID(String flightID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String origin = null;
+
+        // Define the columns you want to retrieve
+        String[] columns = {ORIGIN};
+
+        // Define the selection criteria
+        String selection = FLIGHT_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {flightID};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the origin from the cursor
+            origin = cursor.getString(cursor.getColumnIndex(ORIGIN));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return origin;
+    }
+
+
+    public String getDestByFlightID(String flightID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String dest = null;
+
+        // Define the columns you want to retrieve
+        String[] columns = {DEST};
+
+        // Define the selection criteria
+        String selection = FLIGHT_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {flightID};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the origin from the cursor
+            dest = cursor.getString(cursor.getColumnIndex(DEST));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return dest;
+    }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(db);
+
+        if (oldVersion < 12 && newVersion == 12) {
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + AIRPORT_ID + " TEXT");
+        }
+
     }
 }
 

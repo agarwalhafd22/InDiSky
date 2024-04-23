@@ -10,7 +10,7 @@ public class tempFlightDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 13;
     protected static final String TABLE_NAME = "TempFlight";
     protected static final String ORIGIN = "Origin";
     protected static final String DEST = "Dest";

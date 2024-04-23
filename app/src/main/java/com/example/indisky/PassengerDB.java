@@ -12,7 +12,7 @@ public class PassengerDB extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "indisky";
 
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 13;
     protected static final String TABLE_NAME = "Passenger";
     protected static final String PASSENGER_ID = "Passenger_ID";
     protected static final String BOOKING_ID = "Booking_ID";
@@ -76,6 +76,93 @@ public class PassengerDB extends SQLiteOpenHelper {
         db.close();
 
         return name;
+    }
+
+    public String getAgeByBookingID(int bookingID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String age = null; // Default value if no matching record is found
+
+        // Define the columns you want to retrieve
+        String[] columns = {AGE};
+
+        // Define the selection criteria
+        String selection = BOOKING_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {String.valueOf(bookingID)};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the age from the cursor
+            age = cursor.getString(cursor.getColumnIndex(AGE));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return age;
+    }
+
+    public String getGenderByBookingID(int bookingID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String gender = null; // Default value if no matching record is found
+
+        // Define the columns you want to retrieve
+        String[] columns = {GENDER};
+
+        // Define the selection criteria
+        String selection = BOOKING_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {String.valueOf(bookingID)};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the age from the cursor
+            gender = cursor.getString(cursor.getColumnIndex(GENDER));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return gender;
+    }
+
+    public int getPassengerIDByBookingID(int bookingID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int passengerID = -1; // Default value if no matching record is found
+
+        // Define the columns you want to retrieve
+        String[] columns = {PASSENGER_ID};
+
+        // Define the selection criteria
+        String selection = BOOKING_ID + " = ?";
+
+        // Define the selection arguments
+        String[] selectionArgs = {String.valueOf(bookingID)};
+
+        // Execute the query
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows
+        if (cursor.moveToFirst()) {
+            // Retrieve the age from the cursor
+            passengerID = cursor.getInt(cursor.getColumnIndex(PASSENGER_ID));
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return passengerID;
     }
 
     public void deletePassengerByBookingIDs(List<Integer> bookingIDs) {

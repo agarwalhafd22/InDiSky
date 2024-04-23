@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     TextView headerUserEmailTextView, headerUserNameTextView;
 
-    Button headerHomeButton;
+    Button headerHomeButton, headerFAQButton, headerContactUsButton;
 
     Toolbar toolbar;
 
@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         headerUserEmailTextView = headerView.findViewById(R.id.userEmailTextView);
         headerUserNameTextView = headerView.findViewById(R.id.userNameTextView);
         headerHomeButton = headerView.findViewById(R.id.home_button);
+        headerFAQButton = headerView.findViewById(R.id.faq_button);
+        headerContactUsButton=headerView.findViewById(R.id.contact_us_button);
+
         headerUserEmailTextView.setText(userEmail);
         headerUserNameTextView.setText(userName);
 
@@ -129,6 +132,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     replaceFragment(homeFragment);
                     homeFragmentLoaded=1;
                 }
+            }
+        });
+
+        headerContactUsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ContactUs.class);
+                startActivity(intent);
             }
         });
     }
@@ -222,32 +233,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.getMenu().findItem(R.id.nav_book_flight).setChecked(true);
             menuItem.setChecked(false);
         }
-        else if(menuItem.getItemId()==R.id.nav_check_in)
-        {
-            bookFragmentLoaded=0;
-            myBookingsFragmentLoaded=0;
-            homeFragmentLoaded=0;
-            if(checkInFragmentLoaded==0) {
-                replaceFragment(checkInFragment);
-                checkInFragmentLoaded=1;
-            }
-            drawerLayout.closeDrawer(GravityCompat.START);
-            bottomNavigationView.getMenu().findItem(R.id.check_in_bottom_nav).setChecked(true);
-            menuItem.setChecked(false);
-        }
-        else if(menuItem.getItemId()==R.id.check_in_bottom_nav)
-        {
-            bookFragmentLoaded=0;
-            myBookingsFragmentLoaded=0;
-            homeFragmentLoaded=0;
-            if(checkInFragmentLoaded==0)
-            {
-                replaceFragment(checkInFragment);
-                checkInFragmentLoaded=1;
-            }
-            navigationView.getMenu().findItem(R.id.nav_check_in).setChecked(true);
-            menuItem.setChecked(false);
-        }
+//        else if(menuItem.getItemId()==R.id.nav_check_in)
+//        {
+//            bookFragmentLoaded=0;
+//            myBookingsFragmentLoaded=0;
+//            homeFragmentLoaded=0;
+//            if(checkInFragmentLoaded==0) {
+//                replaceFragment(checkInFragment);
+//                checkInFragmentLoaded=1;
+//            }
+//            drawerLayout.closeDrawer(GravityCompat.START);
+//            bottomNavigationView.getMenu().findItem(R.id.check_in_bottom_nav).setChecked(true);
+//            menuItem.setChecked(false);
+//        }
+//        else if(menuItem.getItemId()==R.id.check_in_bottom_nav)
+//        {
+//            bookFragmentLoaded=0;
+//            myBookingsFragmentLoaded=0;
+//            homeFragmentLoaded=0;
+//            if(checkInFragmentLoaded==0)
+//            {
+//                replaceFragment(checkInFragment);
+//                checkInFragmentLoaded=1;
+//            }
+//            navigationView.getMenu().findItem(R.id.nav_check_in).setChecked(true);
+//            menuItem.setChecked(false);
+//        }
         else if(menuItem.getItemId()==R.id.admin_nav)
         {
             Intent intent =new Intent(MainActivity.this, Admin.class);
